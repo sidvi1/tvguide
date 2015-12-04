@@ -146,10 +146,9 @@ public class PluginHandler {
         Object object = factory.create(jcl, propertieshandler.getProperty("class"));
 
         // cast the object to HowAboutPlugin class
-        HowAboutPlugin howaboutplugin = (HowAboutPlugin) object;
 
         // return the plugin
-        return howaboutplugin;
+        return (HowAboutPlugin) object;
     }
 
 }

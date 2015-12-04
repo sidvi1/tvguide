@@ -92,7 +92,7 @@ public class PropertiesHandler {
      * @throws IOException If something happened due to some IO problem, this
      * exception is thrown.
      */
-    public void load(String filename) throws FileNotFoundException, IOException {
+    public void load(String filename) throws IOException {
 
         // create a file reader from the filename
         FileReader filereader = new FileReader(new File(filename));

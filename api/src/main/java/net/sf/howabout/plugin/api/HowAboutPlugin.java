@@ -71,36 +71,36 @@ public interface HowAboutPlugin {
      * @return A list of events. If no events are found, it returns an
      * empty list.
      */
-    public List<Event> getEvents(Query query);
+    List<Event> getEvents(Query query);
 
     /**
      * Get the plugin name.
      * @return A string containing the plugin name.
      */
-    public String getPluginName();
+    String getPluginName();
 
     /**
      * Get the plugin version.
      * @return A string containing the plugin version.
      */
-    public String getPluginVersion();
+    String getPluginVersion();
 
     /**
      * Get the plugin author.
      * @return A string containing the plugin author.
      */
-    public String getPluginAuthor();
+    String getPluginAuthor();
 
     /**
      * Get the plugin full package name.
      * @return A string containing the plugin full package name.
      */
-    public String getPluginFullPackageName();
+    String getPluginFullPackageName();
 
     /**
      * Get the plugin help.
      * @return A string containing the plugin help.
      */
-    public String getPluginHelp();
+    String getPluginHelp();
 
 }
