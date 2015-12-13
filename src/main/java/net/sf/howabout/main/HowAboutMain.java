@@ -106,60 +106,60 @@ public class HowAboutMain {
 
         // create a new plugin handler based on the contents
         // of the properties file
-        PluginHandler pluginhandler = new PluginHandler("howabout.properties");
-
-        // check if contents are valid
-        if (pluginhandler.checkPluginInfo()) {
-
-            // try to load the plugin
-            try {
-
-                // load the plugin
-                howaboutplugin = pluginhandler.load();
-
-                // create a parameters handler with the
-                // provided application parameters
-                ParametersHandler parametershanlder = new ParametersHandler(args);
-
-                // if parameters are OK
-                if (parametershanlder.validate()) {
-
-                    // get a query based on such parameters
-                    Query query = parametershanlder.getQuery();
-
-                    // print the search
-                    System.out.println(parametershanlder.getHumanReadableQuery());
-
-                    // warn the user, this may take some time
-                    System.out.println("Please, wait...\n");
-
-                    // create an events list, in which the plugin will
-                    // fill it with the desired information
-                    ArrayList<Event> eventlist = (ArrayList<Event>) howaboutplugin.getEvents(query);
-
-                    // create a new printer class and provide the
-                    // events list
-                    TablePrinter tableprinter = new TablePrinter(eventlist);
-
-                    // define which columns will be displayed and print
-                    tableprinter.draw(parametershanlder.getTableParameters());
-
-                }
-            }
-            catch (JclException exception) {
-                // something bad happened when trying to load
-                // the plugin
-
-                // print the error message
-                log.error("Plugin could not be loaded. Sorry." + exception.getMessage());
-            }
-            catch (Exception exception) {
-                // other exceptions were raised, just warn
-                // the user about it
-
-                // print the error message
-                log.error("Something bad happened.");
-            }
+//        PluginHandler pluginhandler = new PluginHandler();
+//
+//        // check if contents are valid
+//        if (pluginhandler.checkPluginInfo()) {
+//
+//            // try to load the plugin
+//            try {
+//
+//                // load the plugin
+//                howaboutplugin = pluginhandler.load();
+//
+//                // create a parameters handler with the
+//                // provided application parameters
+//                ParametersHandler parametershanlder = new ParametersHandler(args);
+//
+//                // if parameters are OK
+//                if (parametershanlder.validate()) {
+//
+//                    // get a query based on such parameters
+//                    Query query = parametershanlder.getQuery();
+//
+//                    // print the search
+//                    System.out.println(parametershanlder.getHumanReadableQuery());
+//
+//                    // warn the user, this may take some time
+//                    System.out.println("Please, wait...\n");
+//
+//                    // create an events list, in which the plugin will
+//                    // fill it with the desired information
+//                    ArrayList<Event> eventlist = (ArrayList<Event>) howaboutplugin.getEvents(query);
+//
+//                    // create a new printer class and provide the
+//                    // events list
+//                    TablePrinter tableprinter = new TablePrinter(eventlist);
+//
+//                    // define which columns will be displayed and print
+//                    tableprinter.draw(parametershanlder.getTableParameters());
+//
+//                }
+//            }
+//            catch (JclException exception) {
+//                // something bad happened when trying to load
+//                // the plugin
+//
+//                // print the error message
+//                log.error("Plugin could not be loaded. Sorry." + exception.getMessage());
+//            }
+//            catch (Exception exception) {
+//                // other exceptions were raised, just warn
+//                // the user about it
+//
+//                // print the error message
+//                log.error("Something bad happened.");
+//            }
         }
     }
 

@@ -53,6 +53,7 @@
 package net.sf.howabout.handlers;
 
 // needed imports
+import java.io.File;
 import java.io.IOException;
 import net.sf.howabout.plugin.api.HowAboutPlugin;
 import org.apache.log4j.Logger;
@@ -71,39 +72,13 @@ import org.xeustechnologies.jcl.exception.JclException;
  */
 public class PluginHandler {
 
-    // the properties file handler
-    private PropertiesHandler propertieshandler;
-
     // get the default log instance
     private Logger log = Logger.getRootLogger();
 
-
-    /**
-     * Constructor method. It basically handles properties from a file
-     * and tries to load the plugin.
-     * @param filename The filename.
-     */
-    public PluginHandler(String filename) {
-
-        // new properties handler
-        propertieshandler = new PropertiesHandler();
-
-        // lets try to load the file
-        try {
-
-            // if there is no file, it is created
-            propertieshandler.createIfNotAvailable(filename);
-
-            // file is loaded
-            propertieshandler.load(filename);
-
-        } catch (IOException exception) {
-
-            // something happened, print error
-            log.error("An IO error happened: " + exception.getMessage());
-        }
+    public PluginHandler(File file) {
 
     }
+
 
     /**
      * Checks if the properties file has valid keys and values.
@@ -151,4 +126,7 @@ public class PluginHandler {
         return (HowAboutPlugin) object;
     }
 
+    public boolean isAnyPluginsExists() {
+        return false;
+    }
 }
