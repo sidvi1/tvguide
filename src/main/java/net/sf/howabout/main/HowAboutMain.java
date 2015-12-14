@@ -56,6 +56,9 @@ package net.sf.howabout.main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import net.sf.howabout.handlers.ParametersHandler;
 import net.sf.howabout.handlers.PluginHandler;
 import net.sf.howabout.plugin.Event;
@@ -77,6 +80,12 @@ import org.xeustechnologies.jcl.exception.JclException;
  */
 public class HowAboutMain {
 
+    private static Logger log = Logger.getRootLogger();
+    static {
+        log.setLevel(Level.ERROR);
+        log.addAppender(new ConsoleAppender(new SimpleLayout()));
+    }
+
     /**
      * Main method for HowAbout.
      * @param args The command line arguments.
@@ -86,80 +95,32 @@ public class HowAboutMain {
      * happens.
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
+        new HowAboutMain().doMain(args);
+    }
 
-        // get the log instance
-        Logger log = Logger.getRootLogger();
-
-        // set the error level
-        log.setLevel(Level.ERROR);
-
-        // add an appender to the log
-        log.addAppender(new ConsoleAppender(new SimpleLayout()));
-
-        // create a HowAboutPlugin object
-        HowAboutPlugin howaboutplugin = null;
-
-        // print the header info
+    private  void doMain(String[] args) {
         System.out.println("HowAbout - An online TV guide searcher");
         System.out.println("Copyright (c) 2011, Paulo Roberto Massa Cereda");
         System.out.println("All rights reserved.\n");
 
-        // create a new plugin handler based on the contents
-        // of the properties file
-//        PluginHandler pluginhandler = new PluginHandler();
-//
-//        // check if contents are valid
-//        if (pluginhandler.checkPluginInfo()) {
-//
-//            // try to load the plugin
-//            try {
-//
-//                // load the plugin
-//                howaboutplugin = pluginhandler.load();
-//
-//                // create a parameters handler with the
-//                // provided application parameters
-//                ParametersHandler parametershanlder = new ParametersHandler(args);
-//
-//                // if parameters are OK
-//                if (parametershanlder.validate()) {
-//
-//                    // get a query based on such parameters
-//                    Query query = parametershanlder.getQuery();
-//
-//                    // print the search
-//                    System.out.println(parametershanlder.getHumanReadableQuery());
-//
-//                    // warn the user, this may take some time
-//                    System.out.println("Please, wait...\n");
-//
-//                    // create an events list, in which the plugin will
-//                    // fill it with the desired information
-//                    ArrayList<Event> eventlist = (ArrayList<Event>) howaboutplugin.getEvents(query);
-//
-//                    // create a new printer class and provide the
-//                    // events list
-//                    TablePrinter tableprinter = new TablePrinter(eventlist);
-//
-//                    // define which columns will be displayed and print
-//                    tableprinter.draw(parametershanlder.getTableParameters());
-//
-//                }
-//            }
-//            catch (JclException exception) {
-//                // something bad happened when trying to load
-//                // the plugin
-//
-//                // print the error message
-//                log.error("Plugin could not be loaded. Sorry." + exception.getMessage());
-//            }
-//            catch (Exception exception) {
-//                // other exceptions were raised, just warn
-//                // the user about it
-//
-//                // print the error message
-//                log.error("Something bad happened.");
-//            }
+        PluginHandler pluginhandler = new PluginHandler();
+
+        Collection<HowAboutPlugin> load = pluginhandler.load();
+
+        ParametersHandler parametershanlder = new ParametersHandler(args);
+        for (HowAboutPlugin plugin : load) {
+            if (parametershanlder.validate()) {
+
+                Query query = parametershanlder.getQuery();
+
+                System.out.println(parametershanlder.getHumanReadableQuery());
+                System.out.println("Seearch for events in: " + plugin.getPluginName());
+
+                List<Event> eventlist =  plugin.getEvents(query);
+
+                TablePrinter tableprinter = new TablePrinter(eventlist);
+                tableprinter.draw(parametershanlder.getTableParameters());
+            }
         }
     }
 

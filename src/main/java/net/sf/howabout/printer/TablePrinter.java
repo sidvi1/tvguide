@@ -53,6 +53,7 @@ package net.sf.howabout.printer;
 
 // needed imports
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import net.sf.howabout.plugin.Event;
@@ -203,7 +204,7 @@ public class TablePrinter {
      * @param date The event date.
      * @return A string containing the event time.
      */
-    private String getTimeFormat(GregorianCalendar date) {
+    private String getTimeFormat(Calendar date) {
 
         // create a date format with time instance
         DateFormat dateformat = DateFormat.getTimeInstance(DateFormat.SHORT);

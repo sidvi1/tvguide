@@ -6,27 +6,27 @@
  * source code file. If you want to include this block, please define
  * the LICENSE parameter into the provided DoxyFile.
  * ********************************************************************
- *
+ * <p/>
  * HowAbout - An online TV guide searcher
  * Copyright (c) 2011, Paulo Roberto Massa Cereda
  * All rights reserved.
- *
+ * <p/>
  * Redistribution and use in source and binary forms, with or
  * without modification, are permitted provided that the following
  * conditions are met:
- *
+ * <p/>
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
+ * notice, this list of conditions and the following disclaimer.
+ * <p/>
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
+ * notice, this list of conditions and the following disclaimer in
+ * the documentation and/or other materials provided with the
+ * distribution.
+ * <p/>
  * 3. Neither the name of the project's author nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ * <p/>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -38,12 +38,12 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * <p/>
  * ********************************************************************
  * End of the LICENSE conditional block
  * ********************************************************************
  * \endcond
- *
+ * <p/>
  * <b>PluginHandler.java</b>: provides methods for loading on-the-fly plugins
  * for HowAbout. It makes use of the JarClassLoader (JCL) library, from
  * XeusTechnologies in order to automatically load classes from Jar files.
@@ -53,8 +53,12 @@
 package net.sf.howabout.handlers;
 
 // needed imports
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
 import net.sf.howabout.plugin.api.HowAboutPlugin;
 import org.apache.log4j.Logger;
 import org.xeustechnologies.jcl.JarClassLoader;
@@ -66,67 +70,85 @@ import org.xeustechnologies.jcl.exception.JclException;
  * of the JarClassLoader (JCL) library, from XeusTechnologies in order to
  * automatically load classes from Jar files This class loads plugins that
  * implement the HowAbout Plugin API interface.
+ *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
  */
 public class PluginHandler {
 
-    // get the default log instance
+    private static final String PLUGIN_DIR = "plugins";
     private Logger log = Logger.getRootLogger();
 
-    public PluginHandler(File file) {
+    public Collection<HowAboutPlugin> load() throws JclException {
+        Collection<HowAboutPlugin> loadedPlugins = new ArrayList<HowAboutPlugin>();
 
-    }
-
-
-    /**
-     * Checks if the properties file has valid keys and values.
-     * @return True if the properties file has valid properties, or
-     * false otherwise.
-     */
-    public boolean checkPluginInfo() {
-
-        // if JAR and CLASS keys are empty
-        if ((propertieshandler.getProperty("jar").equals("")) || (propertieshandler.getProperty("class").equals(""))) {
-
-            // print error and return false
-            log.error("Properties file has empty values. Please, edit the howabout.properties and fix those values.");
-            return false;
-        }
-
-        // everything seems OK, return true
-        return true;
-    }
-
-    /**
-     * Loads the plugin set in the properties file.
-     * @return A <code>net.sf.howabout.plugin.api.HowAboutPlugin</code> object.
-     * @throws JclException If the Jar file does not exist or is invalid,
-     * this exception is thrown.
-     */
-    public HowAboutPlugin load() throws JclException {
-
-        // create a new loader
         JarClassLoader jcl = new JarClassLoader();
-
-        // load the Jar from the plugins directory
-        jcl.add("plugins/" + propertieshandler.getProperty("jar"));
-
-        // create a loader factory
+        jcl.add(PLUGIN_DIR + File.separator);
         JclObjectFactory factory = JclObjectFactory.getInstance();
 
-        // try to load the plugin according to the class defined in
-        // the properties file.
-        Object object = factory.create(jcl, propertieshandler.getProperty("class"));
+        List<String> jarFiles = listJarFiles();
+        for (String jarFile : jarFiles) {
 
-        // cast the object to HowAboutPlugin class
+            ClassNameFinder finder = new ClassNameFinder(jarFile);
+            if (finder.findPluginClass()) {
+                loadedPlugins.add((HowAboutPlugin) factory.create(jcl, finder.getPluginClass()));
+            }
+        }
 
-        // return the plugin
-        return (HowAboutPlugin) object;
+        return loadedPlugins;
     }
 
-    public boolean isAnyPluginsExists() {
-        return false;
+    private List<String> listJarFiles() {
+        File pluginDir = new File(PLUGIN_DIR);
+        String[] plugins = pluginDir.list(new FilenameFilter() {
+            public boolean accept(File file, String s) {
+                return s.endsWith(".jar");
+            }
+        });
+
+        return Arrays.asList(plugins);
+    }
+
+
+    private class ClassNameFinder {
+        private String fileName;
+
+        private String pluginClass;
+
+        public ClassNameFinder(String fileName) {
+            this.fileName = fileName;
+        }
+
+        private boolean findPluginClass() {
+
+            try {
+                JarFile jarFile = new JarFile(fileName);
+                Enumeration allEntries = jarFile.entries();
+                while (allEntries.hasMoreElements()) {
+                    JarEntry entry = (JarEntry) allEntries.nextElement();
+                    String name = entry.getName();
+
+                    if (name.equals("config.properties")) {
+                        InputStream is = jarFile.getInputStream(entry);
+
+                        Properties prop = new Properties();
+                        prop.load(is);
+                        pluginClass = prop.getProperty("plugin.class");
+
+                        return true;
+                    }
+                    log.debug("Found plugin class: " + name);
+                }
+            } catch (IOException e) {
+                log.error("Plugin could not be loaded. Sorry." + e.getMessage());
+                return false;
+            }
+            return false;
+        }
+        public String getPluginClass() {
+            return pluginClass;
+        }
+
     }
 }

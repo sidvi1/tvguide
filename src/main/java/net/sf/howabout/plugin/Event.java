@@ -51,6 +51,7 @@
 package net.sf.howabout.plugin;
 
 // needed imports
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -62,7 +63,7 @@ import java.util.GregorianCalendar;
 public class Event {
 
     // the event date
-    private GregorianCalendar date;
+    private Calendar date;
 
     // the event name
     private String name;
@@ -136,7 +137,7 @@ public class Event {
      * Getter method for date.
      * @return A calendar object containing the event date.
      */
-    public GregorianCalendar getDate() {
+    public Calendar getDate() {
         return date;
     }
 
@@ -144,7 +145,7 @@ public class Event {
      * Setter method for date.
      * @param date The event date.
      */
-    public void setDate(GregorianCalendar date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
