@@ -50,7 +50,6 @@
 // package definition
 package ru.sidvi.howabout.plugin;
 
-// needed imports
 
 import net.sf.howabout.Utils;
 import net.sf.howabout.plugin.Day;
@@ -66,6 +65,7 @@ import java.util.*;
  * Provides methods for retrieving data from UOL Esportes. It basically
  * implements the <code>net.sf.howabout.plugin.api.HowAboutPlugin</code>
  * interface.
+ *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
@@ -73,7 +73,7 @@ import java.util.*;
 public class RussiaVseTvPlugin implements HowAboutPlugin {
 
     private static List<Event> parse(String lookup) {
-        List<Event> list  = new ArrayList<Event>();
+        List<Event> list = new ArrayList<Event>();
 
         try {
             String url = "http://www.vsetv.com/schedule_package_rubase_day_" + lookup + ".html";
@@ -102,13 +102,36 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
     }
 
     public List<Event> getEvents(Query query) {
-        GregorianCalendar today = new GregorianCalendar();
-        String lookup = formatDate(today);
+        GregorianCalendar lookupDate = new GregorianCalendar();
         if (query.getDay() == Day.TOMORROW) {
-            today.add(Calendar.DATE, 1);
+            lookupDate.add(Calendar.DATE, 1);
         }
-        return parse(lookup);
+        String lookup = formatDate(lookupDate);
 
+        List<Event> parsed = parse(lookup);
+
+        List<Event> filtered = new ArrayList<Event>();
+        for (Event event : parsed) {
+            if (!query.getChannel().contains("#")) {
+                if (!event.getChannel().toLowerCase().contains(query.getChannel().toLowerCase())) {
+                    continue;
+                }
+            }
+
+            if (!query.getGenre().contains("#")) {
+                if (!event.getGenre().toLowerCase().contains(query.getGenre().toLowerCase())) {
+                    continue;
+                }
+            }
+
+            if (!query.getName().contains("#")) {
+                if (!event.getName().toLowerCase().contains(query.getName().toLowerCase())) {
+                    continue;
+                }
+            }
+            filtered.add(event);
+        }
+        return filtered;
     }
 
     public String getPluginName() {
@@ -134,7 +157,8 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
     /**
      * Gets the current date and the string with the time and returns a calendar
      * with the correct time set.
-     * @param date The current date.
+     *
+     * @param date  The current date.
      * @param value The time represented as a string.
      * @return The current date with the correct time.
      */

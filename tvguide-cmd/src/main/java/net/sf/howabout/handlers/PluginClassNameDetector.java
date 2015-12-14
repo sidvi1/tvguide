@@ -14,7 +14,7 @@ import java.util.jar.JarFile;
  */
 class PluginClassNameDetector {
 
-    private static Logger log = Logger.getRootLogger();
+    private static Logger log = Logger.getLogger(PluginClassNameDetector.class);
 
     private String jar;
 

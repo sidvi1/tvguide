@@ -6,27 +6,27 @@
  * source code file. If you want to include this block, please define
  * the LICENSE parameter into the provided DoxyFile.
  * ********************************************************************
- *
+ * <p/>
  * HowAbout - An online TV guide searcher
  * Copyright (c) 2011, Paulo Roberto Massa Cereda
  * All rights reserved.
- *
+ * <p/>
  * Redistribution and use in source and binary forms, with or
  * without modification, are permitted provided that the following
  * conditions are met:
- *
+ * <p/>
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
+ * notice, this list of conditions and the following disclaimer.
+ * <p/>
  * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
+ * notice, this list of conditions and the following disclaimer in
+ * the documentation and/or other materials provided with the
+ * distribution.
+ * <p/>
  * 3. Neither the name of the project's author nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ * <p/>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -38,17 +38,18 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * <p/>
  * ********************************************************************
  * End of the LICENSE conditional block
  * ********************************************************************
  * \endcond
- *
+ * <p/>
  * <b>Query.java</b>: provides query features for HowAbout classes.
  */
 
 // package definition
 package net.sf.howabout.plugin;
+
 
 /**
  * Provides query features for HowAbout classes. The query object is heavily
@@ -59,68 +60,44 @@ package net.sf.howabout.plugin;
  */
 public class Query {
 
-    // event channel
     private String channel;
-
-    // event genre
     private String genre;
-
-    // event day
     private Day day;
+    private String name;
 
-    
-    /**
-     * Getter method for channel.
-     * @return The event channel.
-     */
+    public Query() {
+    }
+
     public String getChannel() {
         return channel;
     }
 
-    /**
-     * Setter method for channel.
-     * @param channel The event channel.
-     */
     public void setChannel(String channel) {
         this.channel = channel;
     }
 
-    /**
-     * Getter method for day.
-     * @return The event day.
-     */
-    public Day getDay() {
-        return day;
-    }
-
-    /**
-     * Setter method for day.
-     * @param day The event day.
-     */
-    public void setDay(Day day) {
-        this.day = day;
-    }
-
-    /**
-     * Getter method for genre.
-     * @return The event genre.
-     */
     public String getGenre() {
         return genre;
     }
 
-    /**
-     * Setter method for genre.
-     * @param genre The event genre.
-     */
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    /**
-     * Empty constructor method.
-     */
-    public Query() {
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -136,7 +113,4 @@ public class Query {
         this.genre = genre;
         this.day = day;
     }
-
-    
-
 }

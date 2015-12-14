@@ -52,12 +52,10 @@
 // package definition
 package net.sf.howabout.main;
 
-// needed imports
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import net.sf.howabout.comparator.EventTimeComparator;
 import net.sf.howabout.handlers.ParametersHandler;
 import net.sf.howabout.handlers.PluginRegistry;
 import net.sf.howabout.plugin.Event;
@@ -65,50 +63,41 @@ import net.sf.howabout.plugin.Query;
 import net.sf.howabout.plugin.api.HowAboutPlugin;
 import net.sf.howabout.printer.TablePrinter;
 
-/**
- * Provides the main method for the HowAbout application to run. It basically
- * calls the methods from other helper classes.
- * @author Paulo Roberto Massa Cereda
- * @version 1.0
- * @since 1.0
- */
 public class HowAboutMain {
 
-    /**
-     * Main method for HowAbout.
-     * @param args The command line arguments.
-     * @throws FileNotFoundException This exception is thrown if the
-     * properties file is not found.
-     * @throws IOException This exception is thrown if some IO problem
-     * happens.
-     */
+
     public static void main(String[] args) throws IOException {
         new HowAboutMain().doMain(args);
     }
 
     private  void doMain(String[] args) {
-        System.out.println("HowAbout - An online TV guide searcher");
-        System.out.println("Copyright (c) 2011, Paulo Roberto Massa Cereda");
+        System.out.println("TvGuide - An online TV guide searcher");
+        System.out.println("Copyright (c) 2015, VitalySidorov");
+        System.out.println("Based on code, Paulo Roberto Massa Cereda");
         System.out.println("All rights reserved.\n");
 
         PluginRegistry registry = new PluginRegistry();
         registry.load();
 
+        Set<Event> eventlist = new HashSet<Event>();
+
         ParametersHandler parametershanlder = new ParametersHandler(args);
         for (HowAboutPlugin plugin : registry.getPlugins()) {
             if (parametershanlder.validate()) {
-
                 Query query = parametershanlder.getQuery();
 
                 System.out.println(parametershanlder.getHumanReadableQuery());
-                System.out.println("Seearch for events in: " + plugin.getPluginName());
 
-                List<Event> eventlist =  plugin.getEvents(query);
-
-                TablePrinter tableprinter = new TablePrinter(eventlist);
-                tableprinter.draw(parametershanlder.getTableParameters());
+                eventlist.addAll(plugin.getEvents(query));
             }
         }
+
+
+        ArrayList<Event> list = new ArrayList<Event>(eventlist);
+        Collections.sort(list, new EventTimeComparator());
+
+        TablePrinter tableprinter = new TablePrinter(list);
+        tableprinter.draw();
     }
 
 }
