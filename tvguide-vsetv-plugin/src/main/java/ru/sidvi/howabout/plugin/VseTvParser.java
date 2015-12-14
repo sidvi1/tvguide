@@ -48,7 +48,7 @@ class VseTvParser {
 
 
                         if (inE.hasClass("chname")) {
-                            eventChannel = inE.select(".channeltitle").text();
+                            eventChannel = inE.select(".channeltitle").text().trim();
                         }
 
                         if (inE.id().equals("schedule_container")) {
@@ -60,10 +60,10 @@ class VseTvParser {
                             for (Element child : children) {
 
                                 if (child.hasClass("pasttime") || child.hasClass("time") || child.hasClass("onair")) {
-                                    eventDate = child.text();
+                                    eventDate = child.text().trim();
                                 }
                                 if (child.hasClass("pastprname2") || child.hasClass("prname2")) {
-                                    eventName = child.text();
+                                    eventName = child.text().trim();
                                     shouldCreateEvent = true;
                                 }
 
