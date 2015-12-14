@@ -58,6 +58,7 @@ import java.io.*;
 import java.util.*;
 
 import net.sf.howabout.plugin.api.HowAboutPlugin;
+import org.apache.log4j.Logger;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.exception.JclException;
@@ -74,10 +75,11 @@ import org.xeustechnologies.jcl.exception.JclException;
  */
 public class PluginHandler {
 
-    private static final String PLUGIN_DIR = ".." + File.separator + "plugins" + File.separator;
-
+    private static final String PLUGIN_DIR = "plugins" + File.separator;
+    private Logger log = Logger.getRootLogger();
 
     public Collection<HowAboutPlugin> load() throws JclException {
+        log.debug("Directory to search plugins: " + PLUGIN_DIR);
         Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
 
         JarClassLoader jcl = new JarClassLoader();
@@ -87,7 +89,9 @@ public class PluginHandler {
         List<String> jarFiles = listJarFiles();
         for (String jarFile : jarFiles) {
 
-            ClassNameFinder finder = new ClassNameFinder(jarFile);
+            log.debug("Trying to load from: " + jarFile);
+
+            ClassNameFinder finder = new ClassNameFinder(PLUGIN_DIR + jarFile);
             if (finder.findPluginClass()) {
                 plugins.add((HowAboutPlugin) factory.create(jcl, finder.getPluginClass()));
             }
@@ -104,6 +108,7 @@ public class PluginHandler {
             }
         });
 
+        log.debug("Founded plugins: " + plugins.length);
         return Arrays.asList(plugins);
     }
 

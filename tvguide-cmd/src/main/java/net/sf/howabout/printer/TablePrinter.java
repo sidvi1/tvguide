@@ -128,7 +128,7 @@ public class TablePrinter {
         if (columns[2]) {
 
             // add column
-            stringbuilder.append(addSpaces("DESCRIPTION",45));
+            stringbuilder.append(addSpaces("NAME",45));
             line = line.concat("---------------------------------------------");
         }
 
@@ -144,7 +144,7 @@ public class TablePrinter {
         stringbuilder.append("\n");
         stringbuilder.append(line).append("\n");
 
-        // if events list is empty
+        // if events list is empt
         if (list.isEmpty()) {
 
             // print a message
@@ -174,7 +174,7 @@ public class TablePrinter {
                 if (columns[2]) {
 
                     // add event description
-                    stringbuilder.append(addSpaces(" " + event.getDescription(),45));
+                    stringbuilder.append(addSpaces(" " + event.getName(),45));
                 }
 
                 // if fourth column is set

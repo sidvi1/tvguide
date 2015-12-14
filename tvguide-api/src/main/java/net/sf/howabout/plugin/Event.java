@@ -62,6 +62,8 @@ import java.util.GregorianCalendar;
  */
 public class Event {
 
+    private final static String DEFAULT_GENRE = "other";
+
     // the event date
     private Calendar date;
 
@@ -70,9 +72,8 @@ public class Event {
 
     // the event description
     private String description;
-
     // the event genre
-    private String genre;
+    private String genre = DEFAULT_GENRE;
 
     // the event channel
     private String channel;
