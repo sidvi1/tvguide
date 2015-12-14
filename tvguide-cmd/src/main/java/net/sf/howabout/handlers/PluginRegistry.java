@@ -44,9 +44,9 @@
  * ********************************************************************
  * \endcond
  * <p/>
- * <b>PluginHandler.java</b>: provides methods for loading on-the-fly plugins
+ * <b>PluginRegistry.java</b>: provides methods for loading on-the-fly plugins
  * for HowAbout. It makes use of the JarClassLoader (JCL) library, from
- * XeusTechnologies in order to automatically load classes from Jar files.
+ * XeusTechnologies in order to automatically detect classes from Jar files.
  */
 
 // package definition
@@ -66,21 +66,26 @@ import org.xeustechnologies.jcl.exception.JclException;
 /**
  * Provides methods for loading on-the-fly plugins for HowAbout. It makes use
  * of the JarClassLoader (JCL) library, from XeusTechnologies in order to
- * automatically load classes from Jar files This class loads plugins that
+ * automatically detect classes from Jar files This class loads plugins that
  * implement the HowAbout Plugin API interface.
  *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
  */
-public class PluginHandler {
+public class PluginRegistry {
 
     private static final String PLUGIN_DIR = "plugins" + File.separator;
     private Logger log = Logger.getRootLogger();
 
-    public Collection<HowAboutPlugin> load() throws JclException {
+    private final Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
+
+    public Collection<HowAboutPlugin> getPlugins() {
+        return plugins;
+    }
+
+    public void load() throws JclException {
         log.debug("Directory to search plugins: " + PLUGIN_DIR);
-        Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
 
         JarClassLoader jcl = new JarClassLoader();
         jcl.add(PLUGIN_DIR);
@@ -89,15 +94,13 @@ public class PluginHandler {
         List<String> jarFiles = listJarFiles();
         for (String jarFile : jarFiles) {
 
-            log.debug("Trying to load from: " + jarFile);
+            log.debug("Trying to detect from: " + jarFile);
 
-            ClassNameFinder finder = new ClassNameFinder(PLUGIN_DIR + jarFile);
-            if (finder.findPluginClass()) {
-                plugins.add((HowAboutPlugin) factory.create(jcl, finder.getPluginClass()));
+            PluginClassNameDetector finder = new PluginClassNameDetector(PLUGIN_DIR + jarFile);
+            if (finder.detect()) {
+                plugins.add((HowAboutPlugin) factory.create(jcl, finder.getPlugginClassName()));
             }
         }
-
-        return plugins;
     }
 
     private List<String> listJarFiles() {
@@ -111,6 +114,4 @@ public class PluginHandler {
         log.debug("Founded plugins: " + plugins.length);
         return Arrays.asList(plugins);
     }
-
-
 }

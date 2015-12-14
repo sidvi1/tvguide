@@ -55,21 +55,15 @@ package net.sf.howabout.main;
 // needed imports
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import net.sf.howabout.handlers.ParametersHandler;
-import net.sf.howabout.handlers.PluginHandler;
+import net.sf.howabout.handlers.PluginRegistry;
 import net.sf.howabout.plugin.Event;
 import net.sf.howabout.plugin.Query;
 import net.sf.howabout.plugin.api.HowAboutPlugin;
 import net.sf.howabout.printer.TablePrinter;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.SimpleLayout;
-import org.xeustechnologies.jcl.exception.JclException;
 
 /**
  * Provides the main method for the HowAbout application to run. It basically
@@ -97,12 +91,11 @@ public class HowAboutMain {
         System.out.println("Copyright (c) 2011, Paulo Roberto Massa Cereda");
         System.out.println("All rights reserved.\n");
 
-        PluginHandler pluginhandler = new PluginHandler();
-
-        Collection<HowAboutPlugin> load = pluginhandler.load();
+        PluginRegistry registry = new PluginRegistry();
+        registry.load();
 
         ParametersHandler parametershanlder = new ParametersHandler(args);
-        for (HowAboutPlugin plugin : load) {
+        for (HowAboutPlugin plugin : registry.getPlugins()) {
             if (parametershanlder.validate()) {
 
                 Query query = parametershanlder.getQuery();

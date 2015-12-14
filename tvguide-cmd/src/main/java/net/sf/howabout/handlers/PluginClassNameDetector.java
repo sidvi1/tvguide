@@ -12,7 +12,7 @@ import java.util.jar.JarFile;
 /**
  * Created by sidvi on 14.12.2015.
  */
-class ClassNameFinder {
+class PluginClassNameDetector {
 
     private static Logger log = Logger.getRootLogger();
 
@@ -20,11 +20,11 @@ class ClassNameFinder {
 
     private String pluginClass;
 
-    public ClassNameFinder(String jar) {
+    public PluginClassNameDetector(String jar) {
         this.jar = jar;
     }
 
-    public boolean findPluginClass() {
+    public boolean detect() {
 
         try {
             JarFile jarFile = new JarFile(jar);
@@ -51,7 +51,7 @@ class ClassNameFinder {
         return false;
     }
 
-    public String getPluginClass() {
+    public String getPlugginClassName() {
         return pluginClass;
     }
 
