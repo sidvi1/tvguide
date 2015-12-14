@@ -45,14 +45,11 @@ class ClassNameFinder {
                 log.debug("Found plugin class: " + name);
             }
         } catch (IOException e) {
-            log.error("Plugin could not be loaded. Sorry." + e.getMessage());
+            log.error("Plugin could not be loaded. Sorry.",e);
             return false;
         }
         return false;
     }
-
-
-
 
     public String getPluginClass() {
         return pluginClass;

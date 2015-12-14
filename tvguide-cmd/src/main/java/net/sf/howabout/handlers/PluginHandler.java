@@ -74,14 +74,14 @@ import org.xeustechnologies.jcl.exception.JclException;
  */
 public class PluginHandler {
 
-    private static final String PLUGIN_DIR = "plugins";
+    private static final String PLUGIN_DIR = ".." + File.separator + "plugins" + File.separator;
 
 
     public Collection<HowAboutPlugin> load() throws JclException {
         Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
 
         JarClassLoader jcl = new JarClassLoader();
-        jcl.add(PLUGIN_DIR + File.separator);
+        jcl.add(PLUGIN_DIR);
         JclObjectFactory factory = JclObjectFactory.getInstance();
 
         List<String> jarFiles = listJarFiles();
