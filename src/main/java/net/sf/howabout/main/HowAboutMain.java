@@ -80,12 +80,6 @@ import org.xeustechnologies.jcl.exception.JclException;
  */
 public class HowAboutMain {
 
-    private static Logger log = Logger.getRootLogger();
-    static {
-        log.setLevel(Level.ERROR);
-        log.addAppender(new ConsoleAppender(new SimpleLayout()));
-    }
-
     /**
      * Main method for HowAbout.
      * @param args The command line arguments.
@@ -94,7 +88,7 @@ public class HowAboutMain {
      * @throws IOException This exception is thrown if some IO problem
      * happens.
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws IOException {
         new HowAboutMain().doMain(args);
     }
 

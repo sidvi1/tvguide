@@ -56,11 +56,8 @@ package net.sf.howabout.handlers;
 
 import java.io.*;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 import net.sf.howabout.plugin.api.HowAboutPlugin;
-import org.apache.log4j.Logger;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.exception.JclException;
@@ -78,10 +75,10 @@ import org.xeustechnologies.jcl.exception.JclException;
 public class PluginHandler {
 
     private static final String PLUGIN_DIR = "plugins";
-    private Logger log = Logger.getRootLogger();
+
 
     public Collection<HowAboutPlugin> load() throws JclException {
-        Collection<HowAboutPlugin> loadedPlugins = new ArrayList<HowAboutPlugin>();
+        Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
 
         JarClassLoader jcl = new JarClassLoader();
         jcl.add(PLUGIN_DIR + File.separator);
@@ -92,11 +89,11 @@ public class PluginHandler {
 
             ClassNameFinder finder = new ClassNameFinder(jarFile);
             if (finder.findPluginClass()) {
-                loadedPlugins.add((HowAboutPlugin) factory.create(jcl, finder.getPluginClass()));
+                plugins.add((HowAboutPlugin) factory.create(jcl, finder.getPluginClass()));
             }
         }
 
-        return loadedPlugins;
+        return plugins;
     }
 
     private List<String> listJarFiles() {
@@ -111,44 +108,4 @@ public class PluginHandler {
     }
 
 
-    private class ClassNameFinder {
-        private String fileName;
-
-        private String pluginClass;
-
-        public ClassNameFinder(String fileName) {
-            this.fileName = fileName;
-        }
-
-        private boolean findPluginClass() {
-
-            try {
-                JarFile jarFile = new JarFile(fileName);
-                Enumeration allEntries = jarFile.entries();
-                while (allEntries.hasMoreElements()) {
-                    JarEntry entry = (JarEntry) allEntries.nextElement();
-                    String name = entry.getName();
-
-                    if (name.equals("config.properties")) {
-                        InputStream is = jarFile.getInputStream(entry);
-
-                        Properties prop = new Properties();
-                        prop.load(is);
-                        pluginClass = prop.getProperty("plugin.class");
-
-                        return true;
-                    }
-                    log.debug("Found plugin class: " + name);
-                }
-            } catch (IOException e) {
-                log.error("Plugin could not be loaded. Sorry." + e.getMessage());
-                return false;
-            }
-            return false;
-        }
-        public String getPluginClass() {
-            return pluginClass;
-        }
-
-    }
 }
