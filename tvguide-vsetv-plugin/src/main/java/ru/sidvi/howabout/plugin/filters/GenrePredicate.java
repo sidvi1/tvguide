@@ -1,25 +1,18 @@
 package ru.sidvi.howabout.plugin.filters;
 
-import net.sf.howabout.plugin.Query;
-import org.apache.commons.collections.Predicate;
+import net.sf.howabout.plugin.Event;
 
 /**
  * Created by sidvi on 26.12.2015.
  */
-public class GenrePredicate implements Predicate {
-    private String genre;
+public class GenrePredicate extends BasePredicate {
 
-    public GenrePredicate(String genre) {
-        this.genre = genre;
+    public GenrePredicate(String value) {
+        super(value);
     }
 
     @Override
     public boolean evaluate(Object object) {
-        if (!genre.contains("#")) {
-            if (genre.toLowerCase().contains(((Query)object).getGenre().toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
+        return isAny || ((Event) object).getGenre().toLowerCase().contains(value);
     }
 }

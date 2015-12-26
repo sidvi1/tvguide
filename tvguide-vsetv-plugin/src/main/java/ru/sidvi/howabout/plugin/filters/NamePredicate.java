@@ -1,26 +1,18 @@
 package ru.sidvi.howabout.plugin.filters;
 
-import net.sf.howabout.plugin.Query;
-import org.apache.commons.collections.Predicate;
+import net.sf.howabout.plugin.Event;
 
 /**
  * Created by sidvi on 26.12.2015.
  */
-public class NamePredicate implements Predicate {
-    private String name;
+public class NamePredicate extends BasePredicate {
 
-    public NamePredicate(String name) {
-
-        this.name = name;
+    public NamePredicate(String value) {
+        super(value);
     }
 
     @Override
     public boolean evaluate(Object object) {
-        if (!name.contains("#")) {
-            if (name.toLowerCase().contains(((Query) object).getName().toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
+        return isAny || ((Event) object).getName().toLowerCase().contains(value);
     }
 }

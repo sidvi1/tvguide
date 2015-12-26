@@ -59,6 +59,7 @@ import net.sf.howabout.plugin.api.HowAboutPlugin;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.functors.AllPredicate;
+import org.apache.commons.collections.functors.EqualPredicate;
 import ru.sidvi.howabout.plugin.filters.ChannelPredicate;
 import ru.sidvi.howabout.plugin.filters.GenrePredicate;
 import ru.sidvi.howabout.plugin.filters.NamePredicate;
@@ -77,6 +78,24 @@ import java.util.*;
  * @since 1.0
  */
 public class RussiaVseTvPlugin implements HowAboutPlugin {
+
+    public List<Event> getEvents(Query query) {
+        GregorianCalendar lookupDate = new GregorianCalendar();
+        if (query.getDay() == Day.TOMORROW) {
+            lookupDate.add(Calendar.DATE, 1);
+        }
+        String lookup = formatDate(lookupDate);
+
+        List<Event> parsed = parse(lookup);
+
+        CollectionUtils.filter(parsed, new AllPredicate(new Predicate[]{
+                new ChannelPredicate(query.getChannel()),
+                new GenrePredicate(query.getGenre()),
+                new NamePredicate(query.getName())
+        }));
+
+        return parsed;
+    }
 
     private static List<Event> parse(String lookup) {
         List<Event> list = new ArrayList<Event>();
@@ -107,24 +126,6 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
         return String.valueOf(date.get(Calendar.YEAR)) + "-" + Utils.addZeroes(date.get(Calendar.MONTH) + 1) + "-" + Utils.addZeroes(date.get(Calendar.DATE));
     }
 
-    public List<Event> getEvents(Query query) {
-        GregorianCalendar lookupDate = new GregorianCalendar();
-        if (query.getDay() == Day.TOMORROW) {
-            lookupDate.add(Calendar.DATE, 1);
-        }
-        String lookup = formatDate(lookupDate);
-
-        List<Event> parsed = parse(lookup);
-
-        CollectionUtils.filter(parsed, new AllPredicate(new Predicate[]{
-                new ChannelPredicate(query.getChannel()),
-                new GenrePredicate(query.getGenre()),
-                new NamePredicate(query.getName())
-        }));
-
-        return parsed;
-    }
-
     public String getPluginName() {
         return "www.vsetv.com Plugin";
     }
@@ -143,31 +144,5 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
 
     public String getPluginHelp() {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Gets the current date and the string with the time and returns a calendar
-     * with the correct time set.
-     *
-     * @param date  The current date.
-     * @param value The time represented as a string.
-     * @return The current date with the correct time.
-     */
-    private GregorianCalendar getDateFromString(GregorianCalendar date, String value) {
-
-        // split the time string into hours and minutes
-        StringTokenizer token = new StringTokenizer(value, "h");
-
-        // get the hours
-        String hour = token.nextToken();
-
-        // get the minutes
-        String minute = token.nextToken();
-
-        // create a new calendar based on the current date and current time
-        GregorianCalendar newdate = new GregorianCalendar(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE), Integer.parseInt(hour), Integer.parseInt(minute), 0);
-
-        // return the new date
-        return newdate;
     }
 }
