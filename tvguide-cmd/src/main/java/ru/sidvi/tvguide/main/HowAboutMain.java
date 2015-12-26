@@ -60,7 +60,7 @@ import ru.sidvi.tvguide.handlers.ParametersHandler;
 import ru.sidvi.tvguide.handlers.PluginRegistry;
 import ru.sidvi.tvguide.plugin.Event;
 import ru.sidvi.tvguide.plugin.Query;
-import ru.sidvi.tvguide.plugin.api.HowAboutPlugin;
+import ru.sidvi.tvguide.plugin.api.Plugin;
 import ru.sidvi.tvguide.printer.TablePrinter;
 
 public class HowAboutMain {
@@ -82,11 +82,11 @@ public class HowAboutMain {
         Set<Event> eventlist = new HashSet<Event>();
 
         ParametersHandler parametershanlder = new ParametersHandler(args);
-        for (HowAboutPlugin plugin : registry.getPlugins()) {
+        for (Plugin plugin : registry.getPlugins()) {
             if (parametershanlder.validate()) {
                 Query query = parametershanlder.getQuery();
 
-                System.out.println(parametershanlder.getHumanReadableQuery());
+                System.out.println(parametershanlder.getHumanReadableQuery() + " in Plugin " + plugin.getPluginName());
 
                 eventlist.addAll(plugin.getEvents(query));
             }

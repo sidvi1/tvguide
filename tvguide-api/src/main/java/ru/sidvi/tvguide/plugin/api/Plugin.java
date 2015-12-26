@@ -44,7 +44,7 @@
  * ********************************************************************
  * \endcond
  *
- * <b>HowAboutPlugin.java</b>: provides a default standard plugin interface
+ * <b>Plugin.java</b>: provides a default standard plugin interface
  * for writting HowAbout plugins.
  */
 
@@ -57,12 +57,9 @@ import ru.sidvi.tvguide.plugin.Event;
 import ru.sidvi.tvguide.plugin.Query;
 
 /**
- * Provides a default standard plugin interface for writting HowAbout plugins.
- * @author Paulo Roberto Massa Cereda
- * @version 1.0
- * @since 1.0
+ * Provides a default standard plugin interface for writting  plugins.
  */
-public interface HowAboutPlugin {
+public interface Plugin {
 
     /**
      * Returns all events found which match with the provided query.

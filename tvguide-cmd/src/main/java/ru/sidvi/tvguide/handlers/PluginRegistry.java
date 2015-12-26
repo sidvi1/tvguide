@@ -57,7 +57,7 @@ package ru.sidvi.tvguide.handlers;
 import java.io.*;
 import java.util.*;
 
-import ru.sidvi.tvguide.plugin.api.HowAboutPlugin;
+import ru.sidvi.tvguide.plugin.api.Plugin;
 import org.apache.log4j.Logger;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
@@ -78,9 +78,9 @@ public class PluginRegistry {
     private static final String PLUGIN_DIR = "plugins" + File.separator;
     private Logger log = Logger.getRootLogger();
 
-    private final Collection<HowAboutPlugin> plugins = new ArrayList<HowAboutPlugin>();
+    private final Collection<Plugin> plugins = new ArrayList<Plugin>();
 
-    public Collection<HowAboutPlugin> getPlugins() {
+    public Collection<Plugin> getPlugins() {
         return plugins;
     }
 
@@ -98,7 +98,7 @@ public class PluginRegistry {
 
             PluginClassNameDetector finder = new PluginClassNameDetector(PLUGIN_DIR + jarFile);
             if (finder.detect()) {
-                plugins.add((HowAboutPlugin) factory.create(jcl, finder.getPlugginClassName()));
+                plugins.add((Plugin) factory.create(jcl, finder.getPlugginClassName()));
             }
         }
     }

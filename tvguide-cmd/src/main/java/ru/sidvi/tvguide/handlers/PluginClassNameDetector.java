@@ -14,10 +14,9 @@ import java.util.jar.JarFile;
  */
 class PluginClassNameDetector {
 
-    private static Logger log = Logger.getLogger(PluginClassNameDetector.class);
+    private Logger log = Logger.getLogger(PluginClassNameDetector.class);
 
     private String jar;
-
     private String pluginClass;
 
     public PluginClassNameDetector(String jar) {
@@ -39,10 +38,10 @@ class PluginClassNameDetector {
                     Properties prop = new Properties();
                     prop.load(is);
                     pluginClass = prop.getProperty("plugin.class");
+                    log.debug("Found plugin class: " + pluginClass);
 
                     return true;
                 }
-                log.debug("Found plugin class: " + name);
             }
         } catch (IOException e) {
             log.error("Plugin could not be loaded. Sorry.",e);

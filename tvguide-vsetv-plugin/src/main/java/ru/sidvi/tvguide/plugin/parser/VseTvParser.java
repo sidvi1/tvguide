@@ -65,6 +65,7 @@ public class VseTvParser implements Parser {
                                     event.setDate(Utils.convert(eventDate));
                                     event.setName(eventName);
                                     list.add(event);
+
                                     shouldCreateEvent = false;
 
                                     eventDate = null;
@@ -72,15 +73,13 @@ public class VseTvParser implements Parser {
                                 }
                             }
                         }
-
-
                     }
                 }
-
             }
         } catch (Exception e) {
             parseSuccess = false;
             exception = e;
+            e.printStackTrace();
         }
         return list;
     }

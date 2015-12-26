@@ -51,7 +51,8 @@
 package ru.sidvi.tvguide.plugin;
 
 
-import ru.sidvi.tvguide.plugin.api.HowAboutPlugin;
+import org.apache.log4j.Logger;
+import ru.sidvi.tvguide.plugin.api.Plugin;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.functors.AllPredicate;
@@ -68,11 +69,14 @@ import java.util.*;
 /**
  * Plugin for www.tvguide.com tv guide.
  */
-public class RussiaVseTvPlugin implements HowAboutPlugin {
+public class RussiaVseTvPlugin implements Plugin {
+
+    private Logger logger = Logger.getLogger(RussiaVseTvPlugin.class);
+
+    private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public List<Event> getEvents(Query query) {
         String lookup = createDateLookup(query);
-
         List<Event> parsed = parse(lookup);
 
         CollectionUtils.filter(parsed, new AllPredicate(new Predicate[]{
@@ -89,18 +93,30 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
         if (query.getDay() == Day.TOMORROW) {
             lookupDate.add(Calendar.DATE, 1);
         }
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(lookupDate.getTime());
     }
 
-    private static List<Event> parse(String lookup) {
-        String url = "http://www.tvguide.com/schedule_package_rubase_day_" + lookup + ".html";
+    private List<Event> parse(String lookup) {
+        String url = "http://www.vsetv.com/schedule_package_rubase_day_" + lookup + ".html";
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
 
+        printRequestDebug(url, headers);
+
         DownloadExecutor executor = new DownloadExecutor(url, headers);
         executor.execute(new VseTvDownloadAction(new VseTvParser()));
-        return executor.getDownloaded();
+        List<Event> eventList = executor.getDownloaded();
+
+        logger.debug("Downloaded events: " + eventList.size());
+
+        return eventList;
+    }
+
+    private void printRequestDebug(String url, Map<String, String> headers) {
+        logger.debug("Download url: " + url);
+        for (Map.Entry<String, String> e : headers.entrySet()) {
+            logger.debug("Download header: " + e.getKey() + "=" + e.getValue());
+        }
     }
 
     public String getPluginName() {
