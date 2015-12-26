@@ -56,6 +56,12 @@ import net.sf.howabout.plugin.Day;
 import net.sf.howabout.plugin.Event;
 import net.sf.howabout.plugin.Query;
 import net.sf.howabout.plugin.api.HowAboutPlugin;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.functors.AllPredicate;
+import ru.sidvi.howabout.plugin.filters.ChannelPredicate;
+import ru.sidvi.howabout.plugin.filters.GenrePredicate;
+import ru.sidvi.howabout.plugin.filters.NamePredicate;
 
 import java.io.InputStream;
 import java.net.*;
@@ -110,28 +116,13 @@ public class RussiaVseTvPlugin implements HowAboutPlugin {
 
         List<Event> parsed = parse(lookup);
 
-        List<Event> filtered = new ArrayList<Event>();
-        for (Event event : parsed) {
-            if (!query.getChannel().contains("#")) {
-                if (!event.getChannel().toLowerCase().contains(query.getChannel().toLowerCase())) {
-                    continue;
-                }
-            }
+        CollectionUtils.filter(parsed, new AllPredicate(new Predicate[]{
+                new ChannelPredicate(query.getChannel()),
+                new GenrePredicate(query.getGenre()),
+                new NamePredicate(query.getName())
+        }));
 
-            if (!query.getGenre().contains("#")) {
-                if (!event.getGenre().toLowerCase().contains(query.getGenre().toLowerCase())) {
-                    continue;
-                }
-            }
-
-            if (!query.getName().contains("#")) {
-                if (!event.getName().toLowerCase().contains(query.getName().toLowerCase())) {
-                    continue;
-                }
-            }
-            filtered.add(event);
-        }
-        return filtered;
+        return parsed;
     }
 
     public String getPluginName() {
