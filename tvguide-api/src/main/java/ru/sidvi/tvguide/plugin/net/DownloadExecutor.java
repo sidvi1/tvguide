@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by sidvi on 26.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 26.12.2015.
  */
 public class DownloadExecutor {
 

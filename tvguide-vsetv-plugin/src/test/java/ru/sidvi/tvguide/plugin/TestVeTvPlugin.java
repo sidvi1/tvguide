@@ -12,7 +12,7 @@ import java.util.*;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Created by sidvi on 13.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 13.12.2015.
  */
 public class TestVeTvPlugin {
 

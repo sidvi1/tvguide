@@ -66,9 +66,6 @@ import ru.sidvi.tvguide.plugin.parser.VseTvParser;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * Plugin for www.tvguide.com tv guide.
- */
 public class RussiaVseTvPlugin implements Plugin {
 
     private Logger logger = Logger.getLogger(RussiaVseTvPlugin.class);
@@ -77,7 +74,7 @@ public class RussiaVseTvPlugin implements Plugin {
 
     public List<Event> getEvents(Query query) {
         String lookup = createDateLookup(query);
-        List<Event> parsed = parse(lookup);
+        List<Event> parsed = parseForDate(lookup);
 
         CollectionUtils.filter(parsed, new AllPredicate(new Predicate[]{
                 new ChannelPredicate(query.getChannel()),
@@ -96,7 +93,7 @@ public class RussiaVseTvPlugin implements Plugin {
         return df.format(lookupDate.getTime());
     }
 
-    private List<Event> parse(String lookup) {
+    private List<Event> parseForDate(String lookup) {
         String url = "http://www.vsetv.com/schedule_package_rubase_day_" + lookup + ".html";
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");

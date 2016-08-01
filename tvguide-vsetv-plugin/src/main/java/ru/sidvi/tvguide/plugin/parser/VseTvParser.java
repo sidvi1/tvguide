@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
- * Created by sidvi on 14.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
  */
 public class VseTvParser implements Parser {
     private Exception exception;

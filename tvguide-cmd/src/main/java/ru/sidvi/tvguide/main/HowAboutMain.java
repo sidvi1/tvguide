@@ -72,7 +72,7 @@ public class HowAboutMain {
 
     private  void doMain(String[] args) {
         System.out.println("TvGuide - An online TV guide searcher");
-        System.out.println("Copyright (c) 2015, VitalySidorov");
+        System.out.println("Copyright (c) 2015, Vitaly Sidorov");
         System.out.println("Based on code, Paulo Roberto Massa Cereda");
         System.out.println("All rights reserved.\n");
 

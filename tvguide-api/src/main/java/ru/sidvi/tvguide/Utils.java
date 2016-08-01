@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by sidvi on 14.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
  */
 public class Utils {
     /**
@@ -22,7 +22,6 @@ public class Utils {
 
         // check if a zero is necessary
         if ((value >= 0) && (value <= 9)) {
-
             // add a zero
             newValue = "0" + newValue;
         }
@@ -40,5 +39,9 @@ public class Utils {
         Calendar dt = new GregorianCalendar();
         dt.setTime(dfFull.parse(text));
         return dt;
+    }
+
+    public static String formatColumn(int numberOfSpaces, String data) {
+        return String.format("%1$-" + numberOfSpaces + "s", data);
     }
 }

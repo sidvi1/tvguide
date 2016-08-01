@@ -3,7 +3,7 @@ package ru.sidvi.tvguide.plugin.filters;
 import ru.sidvi.tvguide.plugin.Event;
 
 /**
- * Created by sidvi on 26.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 26.12.2015.
  *
  */
 public class GenrePredicate extends BasePredicate {

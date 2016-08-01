@@ -60,6 +60,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import ru.sidvi.tvguide.Utils;
 import ru.sidvi.tvguide.plugin.Event;
 
 /**
@@ -101,22 +102,22 @@ public class TablePrinter {
         String line = "";
 
         if (columns[0]) {
-            stringbuilder.append(formatColumn(10, i18n.getString("time")));
+            stringbuilder.append(Utils.formatColumn(10, i18n.getString("time")));
             line = line.concat("----------");
         }
 
         if (columns[1]) {
-            stringbuilder.append(formatColumn(30, i18n.getString("channel")));
+            stringbuilder.append(Utils.formatColumn(30, i18n.getString("channel")));
             line = line.concat("--------------------");
         }
 
         if (columns[2]) {
-            stringbuilder.append(formatColumn(15, i18n.getString("genre")));
+            stringbuilder.append(Utils.formatColumn(15, i18n.getString("genre")));
             line = line.concat("---------------");
         }
 
         if (columns[3]) {
-            stringbuilder.append(formatColumn(45, i18n.getString("name")));
+            stringbuilder.append(Utils.formatColumn(45, i18n.getString("name")));
             line = line.concat("---------------------------------------------");
         }
 
@@ -128,19 +129,19 @@ public class TablePrinter {
         } else {
             for (Event event : list) {
                 if (columns[0]) {
-                    stringbuilder.append(formatColumn(10, format(event.getDate())));
+                    stringbuilder.append(Utils.formatColumn(10, format(event.getDate())));
                 }
 
                 if (columns[1]) {
-                    stringbuilder.append(formatColumn(30, event.getChannel()));
+                    stringbuilder.append(Utils.formatColumn(30, event.getChannel()));
                 }
 
                 if (columns[2]) {
-                    stringbuilder.append(formatColumn(15, event.getGenre()));
+                    stringbuilder.append(Utils.formatColumn(15, event.getGenre()));
                 }
 
                 if (columns[3]) {
-                    stringbuilder.append(formatColumn(45, event.getName()));
+                    stringbuilder.append(Utils.formatColumn(45, event.getName()));
                 }
 
 
@@ -150,10 +151,6 @@ public class TablePrinter {
         }
 
         System.out.println(stringbuilder.toString());
-    }
-
-    private String formatColumn(int numberOfSpaces, String data) {
-        return String.format("%1$-" + numberOfSpaces + "s", data);
     }
 
     /**

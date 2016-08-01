@@ -10,7 +10,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * Created by sidvi on 14.12.2015.
+ * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
  */
 class PluginClassNameDetector {
 
