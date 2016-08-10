@@ -1,4 +1,4 @@
-package ru.sidvi.tvguide.printer;
+package ru.sidvi.tvguide;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -22,17 +22,26 @@ public class TestUtils {
 
     public static String fromResource(String file) {
         try {
-            return load(file);
+            return load(file, "UTF-8");
         } catch (IOException e) {
             logger.error("Exception while load resource from file {}", file, e);
         }
         return "";
     }
 
-    private static String load(String file) throws IOException {
+    public static String fromResource(String file, String charset) {
+        try {
+            return load(file, charset);
+        } catch (IOException e) {
+            logger.error("Exception while load resource from file {}", file, e);
+        }
+        return "";
+    }
+
+    private static String load(String file, String charset) throws IOException {
         return IOUtils.toString(
                 TestUtils.class.getClassLoader().getResourceAsStream(file),
-                "UTF-8"
+                charset
         );
     }
 }

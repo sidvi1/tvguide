@@ -11,5 +11,16 @@
 
     <artifactId>tvguide-api</artifactId>
 
+    <properties>
+        <slf4j-api.version>1.7.13</slf4j-api.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

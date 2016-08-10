@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static ru.sidvi.tvguide.printer.TestUtils.fromResource;
+import static ru.sidvi.tvguide.TestUtils.fromResource;
+import static ru.sidvi.tvguide.TestUtils.removeReturn;
 
 /**
  * @author Vitaly Sidorov mail@vitaly-sidorov.com
@@ -45,6 +46,6 @@ public class TablePrinterTest {
         out.flush();
 
         //then
-        assertEquals(TestUtils.removeReturn(fromResource("table_printer.txt")), TestUtils.removeReturn(actual.toString()));
+        assertEquals(removeReturn(fromResource("table_printer.txt")), removeReturn(actual.toString()));
     }
 }

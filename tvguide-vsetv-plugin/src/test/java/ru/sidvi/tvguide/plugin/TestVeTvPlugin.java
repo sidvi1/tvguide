@@ -1,15 +1,19 @@
 package ru.sidvi.tvguide.plugin;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import ru.sidvi.tvguide.plugin.parser.VseTvParser;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static ru.sidvi.tvguide.TestUtils.fromResource;
 
 /**
  * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 13.12.2015.
@@ -25,7 +29,7 @@ public class TestVeTvPlugin {
         printVseTv(events, os);
         String actual = bos.toString("windows-1251");
 
-        String expected = IOUtils.toString(getClass().getClassLoader().getResourceAsStream("vsetv_out.txt"));
+        String expected = fromResource("vsetv_out.txt");
 
         is.close();
         os.close();
