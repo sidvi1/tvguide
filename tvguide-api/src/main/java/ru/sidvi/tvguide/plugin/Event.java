@@ -92,7 +92,7 @@ public class Event {
      * @param genre The event genre.
      * @param channel The event channel.
      */
-    public Event(GregorianCalendar date, String name, String description, String genre, String channel) {
+    public Event(Calendar date, String name, String description, String genre, String channel) {
 
         // set everything
         this.date = date;
