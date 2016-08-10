@@ -13,14 +13,11 @@ public class ValidatorTest {
 
     private Validator validator;
 
-    private ParametersHandler handler;
-
     private String[] params;
 
     @Before
     public void setUp() throws Exception {
-        handler = new ParametersHandler();
-        validator = new Validator(handler);
+        validator = new Validator();
     }
 
     @Test

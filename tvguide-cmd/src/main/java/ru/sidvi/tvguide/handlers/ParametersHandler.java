@@ -69,19 +69,28 @@ import org.apache.log4j.Logger;
  */
 public class ParametersHandler {
     // what we are looking
-    public String what;
+    private String what;
 
     // where we are looking
-    public String where;
+    private String where;
 
     // and when we are looking
-    public String when;
+    private String when;
 
-    public String genre;
+    private String genre = "#";;
 
 
     // create a log instance
     private Logger log = Logger.getRootLogger();
+
+    public ParametersHandler(String[] parameters) {
+        what = parameters[0].toLowerCase();
+        where = parameters[2];
+        when = parameters[3].toLowerCase();
+        if (parameters.length == 5) {
+            genre = parameters[4];
+        }
+    }
 
     /**
      * Builds the query according to the provided parameters.
