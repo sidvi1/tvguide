@@ -2,7 +2,6 @@ package ru.sidvi.tvguide.handlers.parameters;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.sidvi.tvguide.handlers.ParametersHandler;
 
 import static org.junit.Assert.assertEquals;
 

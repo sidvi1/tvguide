@@ -60,8 +60,10 @@ package ru.sidvi.tvguide.plugin;
  */
 public class Query {
 
+    public static final String DEFAULT_VALUE = "#";
+
     private String channel;
-    private String genre;
+    private String genre = DEFAULT_VALUE;
     private Day day;
     private String name;
 
@@ -100,17 +102,58 @@ public class Query {
         return name;
     }
 
-    /**
-     * Constructor method which sets all attributes.
-     * @param channel The event channel.
-     * @param genre The event genre.
-     * @param day The event day.
-     */
     public Query(String channel, String genre, Day day) {
-
-        // set all values
         this.channel = channel;
         this.genre = genre;
         this.day = day;
+    }
+
+    public String getHumanReadable() {
+        String name;
+        String genre;
+        String channel;
+
+        if (getName().equals("#")) {
+            name = "every event";
+        } else {
+            name = "event contains \"" + getName().toUpperCase() + "\"";
+        }
+
+        if (getChannel().equals("#")) {
+            channel = "every channel";
+        } else {
+            channel = "channel contains \"" + getChannel().toUpperCase() + "\"";
+        }
+
+        if (getGenre().equals("#")) {
+            genre = "any genre";
+        } else {
+            genre = "genre contains \"" + getChannel().toUpperCase() + "\"";
+        }
+
+        return "Searching for " + name + " in " + channel + " " + getDay().toString().toLowerCase() + " with " + genre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Query query = (Query) o;
+
+        if (channel != null ? !channel.equals(query.channel) : query.channel != null) return false;
+        if (genre != null ? !genre.equals(query.genre) : query.genre != null) return false;
+        if (day != query.day) return false;
+        return !(name != null ? !name.equals(query.name) : query.name != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = channel != null ? channel.hashCode() : 0;
+        result = 31 * result + (genre != null ? genre.hashCode() : 0);
+        result = 31 * result + (day != null ? day.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }
