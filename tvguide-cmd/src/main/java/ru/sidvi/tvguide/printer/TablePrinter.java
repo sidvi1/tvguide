@@ -53,15 +53,13 @@ package ru.sidvi.tvguide.printer;
 
 // needed imports
 
+import org.apache.commons.lang3.StringUtils;
+import ru.sidvi.tvguide.plugin.Event;
+
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import ru.sidvi.tvguide.Utils;
-import ru.sidvi.tvguide.plugin.Event;
+import java.util.*;
 
 /**
  * Provides a method for drawing a TV Guide events table in the terminal. It
@@ -69,6 +67,7 @@ import ru.sidvi.tvguide.plugin.Event;
  * vector of booleans to determine which columns will be printed.
  *
  * @author Paulo Roberto Massa Cereda
+ * @author Vitaly Sidorov mail@vitaly-sidorov.com
  * @version 1.0
  * @since 1.0
  */
@@ -79,14 +78,17 @@ public class TablePrinter {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm");
 
     private List<Event> list;
+    private PrintWriter out;
 
     /**
      * Constructor method. Sets the events list.
      *
      * @param list
+     * @param out
      */
-    public TablePrinter(List<Event> list) {
+    public TablePrinter(List<Event> list, PrintWriter out) {
         this.list = list;
+        this.out = out;
     }
 
 
@@ -97,60 +99,58 @@ public class TablePrinter {
      * @param columns A vector of booleans of which columns will be shown.
      */
     public void draw(boolean[] columns) {
+        List<Row> rows = buildRows(columns);
+        printRows(rows);
+    }
 
-        StringBuilder stringbuilder = new StringBuilder();
-        String line = "";
+    private void printRows(List<Row> rows) {
+        StringBuilder builder = new StringBuilder();
+        for (Row row : rows) {
+            builder.append(row).append("\n");
+        }
+        out.println(builder.toString());
+    }
 
+    private List<Row> buildRows(boolean[] columns) {
+        List<Row> rows = new ArrayList<Row>();
+
+        rows.add(createRow(columns, i18n.getString("time"), i18n.getString("channel"), i18n.getString("genre"), i18n.getString("name")));
+        rows.add(createSeparatorRow(columns));
+
+        for (Event event : list) {
+            String time = format(event.getDate());
+            String channel = event.getChannel();
+            String genre = event.getGenre();
+            String name = event.getName();
+
+            rows.add(createRow(columns, time, channel, genre, name));
+        }
+        rows.add(createSeparatorRow(columns));
+        return rows;
+    }
+
+    private Row createSeparatorRow(boolean[] columns) {
+        return createRow(columns, StringUtils.repeat("-", 10), StringUtils.repeat("-", 30), StringUtils.repeat("-", 15), StringUtils.repeat("-", 35));
+    }
+
+    private Row createRow(boolean[] columns, String time, String channel, String genre, String name) {
+        Row row1 = new Row();
         if (columns[0]) {
-            stringbuilder.append(Utils.formatColumn(10, i18n.getString("time")));
-            line = line.concat("----------");
+            row1.add(new TimeCell(time));
         }
 
         if (columns[1]) {
-            stringbuilder.append(Utils.formatColumn(30, i18n.getString("channel")));
-            line = line.concat("--------------------");
+            row1.add(new ChannelCell(channel));
         }
 
         if (columns[2]) {
-            stringbuilder.append(Utils.formatColumn(15, i18n.getString("genre")));
-            line = line.concat("---------------");
+            row1.add(new GenreCell(genre));
         }
 
         if (columns[3]) {
-            stringbuilder.append(Utils.formatColumn(45, i18n.getString("name")));
-            line = line.concat("---------------------------------------------");
+            row1.add(new NameCell(name));
         }
-
-        stringbuilder.append("\n");
-        stringbuilder.append(line).append("\n");
-
-        if (list.isEmpty()) {
-            stringbuilder.append("No entries found, sorry.");
-        } else {
-            for (Event event : list) {
-                if (columns[0]) {
-                    stringbuilder.append(Utils.formatColumn(10, format(event.getDate())));
-                }
-
-                if (columns[1]) {
-                    stringbuilder.append(Utils.formatColumn(30, event.getChannel()));
-                }
-
-                if (columns[2]) {
-                    stringbuilder.append(Utils.formatColumn(15, event.getGenre()));
-                }
-
-                if (columns[3]) {
-                    stringbuilder.append(Utils.formatColumn(45, event.getName()));
-                }
-
-
-                stringbuilder.append("\n");
-            }
-            stringbuilder.append(line).append("\n");
-        }
-
-        System.out.println(stringbuilder.toString());
+        return row1;
     }
 
     /**

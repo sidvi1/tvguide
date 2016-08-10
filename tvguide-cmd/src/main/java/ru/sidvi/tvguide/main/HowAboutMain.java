@@ -53,6 +53,7 @@
 package ru.sidvi.tvguide.main;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import ru.sidvi.tvguide.comparator.EventTimeComparator;
@@ -96,7 +97,7 @@ public class HowAboutMain {
         ArrayList<Event> list = new ArrayList<Event>(eventlist);
         Collections.sort(list, new EventTimeComparator());
 
-        TablePrinter tableprinter = new TablePrinter(list);
+        TablePrinter tableprinter = new TablePrinter(list, new PrintWriter(System.out));
         tableprinter.draw();
     }
 

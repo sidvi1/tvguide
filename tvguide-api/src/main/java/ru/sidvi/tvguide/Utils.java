@@ -22,7 +22,7 @@ public class Utils {
         return dt;
     }
 
-    public static String formatColumn(int numberOfSpaces, String data) {
+    public static String rightPadUntil(int numberOfSpaces, String data) {
         return String.format("%1$-" + numberOfSpaces + "s", data);
     }
 }
