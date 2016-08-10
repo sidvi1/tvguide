@@ -12,7 +12,7 @@
     <artifactId>tvguide-api</artifactId>
 
     <properties>
-        <slf4j-api.version>1.7.13</slf4j-api.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
     </properties>
 
     <dependencies>

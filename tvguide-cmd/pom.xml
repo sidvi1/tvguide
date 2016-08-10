@@ -15,6 +15,7 @@
         <commons-lang3.version>3.4</commons-lang3.version>
         <slf4j-api.version>1.7.13</slf4j-api.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
