@@ -59,6 +59,7 @@ import java.util.*;
 import ru.sidvi.tvguide.comparator.EventTimeComparator;
 import ru.sidvi.tvguide.handlers.ParametersHandler;
 import ru.sidvi.tvguide.handlers.PluginRegistry;
+import ru.sidvi.tvguide.handlers.parameters.Validator;
 import ru.sidvi.tvguide.plugin.Event;
 import ru.sidvi.tvguide.plugin.Query;
 import ru.sidvi.tvguide.plugin.api.Plugin;
@@ -82,9 +83,9 @@ public class HowAboutMain {
 
         Set<Event> eventlist = new HashSet<Event>();
 
-        ParametersHandler parametershanlder = new ParametersHandler(args);
+        ParametersHandler parametershanlder = new ParametersHandler();
         for (Plugin plugin : registry.getPlugins()) {
-            if (parametershanlder.validate()) {
+            if (new Validator(parametershanlder).validate(args)) {
                 Query query = parametershanlder.getQuery();
 
                 System.out.println(parametershanlder.getHumanReadableQuery() + " in Plugin " + plugin.getPluginName());

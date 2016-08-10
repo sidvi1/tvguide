@@ -53,6 +53,7 @@ package ru.sidvi.tvguide.handlers;
 
 // needed imports
 
+import ru.sidvi.tvguide.Utils;
 import ru.sidvi.tvguide.plugin.Day;
 import ru.sidvi.tvguide.plugin.Query;
 import org.apache.log4j.Logger;
@@ -67,97 +68,20 @@ import org.apache.log4j.Logger;
  * @since 1.0
  */
 public class ParametersHandler {
-
-    private static final StringBuilder ERROR_MESSAGE = new StringBuilder();
-
-    static {
-        ERROR_MESSAGE.append("TvGuide expects 4 or 5 parameters:\n\n");
-        ERROR_MESSAGE.append("tvguide WHAT on WHERE WHEN GENRE\n\n");
-        ERROR_MESSAGE.append("tvguide # on MTV today music \n\n");
-        ERROR_MESSAGE.append("When searching for sentences, you must escape the ");
-        ERROR_MESSAGE.append("parameters in double quotes, e.g.,\n\n");
-        ERROR_MESSAGE.append("You may also search using wildcards (#), e.g.,\n\n");
-    }
-
-
-    // parameters provided by the main class, usually args[]
-    private String[] parameters;
-
     // what we are looking
-    private String what;
+    public String what;
 
     // where we are looking
-    private String where;
+    public String where;
 
     // and when we are looking
-    private String when;
+    public String when;
 
-    private String genre;
+    public String genre;
+
 
     // create a log instance
     private Logger log = Logger.getRootLogger();
-
-
-    /**
-     * Constructor method. It basically handles the application parameters,
-     * in this case, the argv[] attribute.
-     *
-     * @param parameters
-     */
-    public ParametersHandler(String[] parameters) {
-        this.parameters = parameters;
-    }
-
-
-    /**
-     * Validates the parameters. Since this is a console application,
-     * those parameters must be checked against a known command line
-     * pattern.
-     *
-     * @return True if parameters have been validated, or false
-     * otherwise.
-     */
-    public boolean validate() {
-
-        // set the default error message
-
-
-        if (parameters.length < 4 || parameters.length > 5) {
-            printErrorMessage("The number of parameters is incorrect. ");
-            return false;
-        } else {
-            what = parameters[0].toLowerCase();
-
-            // the second parameter must be "ON"
-            if (!parameters[1].toLowerCase().equals("on")) {
-                printErrorMessage("The syntax is incorrect. ");
-                return false;
-            }
-
-            where = parameters[2];
-
-            when = parameters[3].toLowerCase();
-
-            // if this parameter is not equal to "TODAY" or "TOMORROW"
-            if ((!when.equals("today")) && (!when.equals("tomorrow"))) {
-                printErrorMessage("The syntax is incorrect. ");
-                return false;
-            }
-
-
-            if (parameters.length == 5) {
-                genre = parameters[4];
-            } else {
-                genre = "#";
-            }
-
-            return true;
-        }
-    }
-
-    private void printErrorMessage(String s) {
-        System.out.println(s + ERROR_MESSAGE.toString());
-    }
 
     /**
      * Builds the query according to the provided parameters.
