@@ -1,6 +1,7 @@
 package ru.sidvi.tvguide.handlers;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +15,7 @@ import java.util.jar.JarFile;
  */
 class PluginClassNameDetector {
 
-    private Logger log = Logger.getLogger(PluginClassNameDetector.class);
+    private Logger log = LoggerFactory.getLogger(PluginClassNameDetector.class);
 
     private String jar;
     private String pluginClass;

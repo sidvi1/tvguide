@@ -56,12 +56,6 @@
                                     <version>${commons-io.version}</version>
                                     <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                 </artifactItem>
-                                <artifactItem>
-                                    <groupId>log4j</groupId>
-                                    <artifactId>log4j</artifactId>
-                                    <version>${log4j.version}</version>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                </artifactItem>
                                 <dependency>
                                     <groupId>commons-collections</groupId>
                                     <artifactId>commons-collections</artifactId>

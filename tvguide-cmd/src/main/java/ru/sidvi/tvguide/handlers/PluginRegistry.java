@@ -52,9 +52,8 @@
 // package definition
 package ru.sidvi.tvguide.handlers;
 
-// needed imports
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.exception.JclException;
@@ -79,9 +78,10 @@ import java.util.List;
  */
 public class PluginRegistry {
 
+    private Logger log = LoggerFactory.getLogger(PluginRegistry.class);
+
     private static final String PLUGIN_DIR = "plugins" + File.separator;
     private final Collection<Plugin> plugins = new ArrayList<Plugin>();
-    private Logger log = Logger.getRootLogger();
 
     public Collection<Plugin> getPlugins() {
         return plugins;

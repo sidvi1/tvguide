@@ -54,7 +54,8 @@ package ru.sidvi.tvguide.plugin;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.functors.AllPredicate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.sidvi.tvguide.plugin.api.Plugin;
 import ru.sidvi.tvguide.plugin.filters.ChannelPredicate;
 import ru.sidvi.tvguide.plugin.filters.GenrePredicate;
@@ -74,7 +75,7 @@ import java.util.*;
 public class RussiaVseTvPlugin implements Plugin {
 
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    private Logger logger = Logger.getLogger(RussiaVseTvPlugin.class);
+    private Logger logger = LoggerFactory.getLogger(RussiaVseTvPlugin.class);
 
     @Override
     public List<Event> getEvents(Query query) {

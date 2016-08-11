@@ -51,8 +51,8 @@
 // package definition
 package ru.sidvi.tvguide.handlers;
 
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.sidvi.tvguide.plugin.Day;
 import ru.sidvi.tvguide.plugin.Query;
 
@@ -62,7 +62,7 @@ import ru.sidvi.tvguide.plugin.Query;
  * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
  */
 public class QueryFactory {
-    private Logger log = Logger.getRootLogger();
+    private Logger log = LoggerFactory.getLogger(QueryFactory.class);
     private String[] parameters;
 
     public QueryFactory(String[] parameters) {
