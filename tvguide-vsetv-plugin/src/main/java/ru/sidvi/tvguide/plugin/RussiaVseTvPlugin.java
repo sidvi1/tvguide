@@ -67,7 +67,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Plugin for http://www.vsetvcom/
+ * Plugin for http://www.vsetvcom/.
  *
  * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
  */
@@ -76,6 +76,7 @@ public class RussiaVseTvPlugin implements Plugin {
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private Logger logger = Logger.getLogger(RussiaVseTvPlugin.class);
 
+    @Override
     public List<Event> getEvents(Query query) {
         String lookup = createDateLookup(query);
         List<Event> parsed = parseForDate(lookup);
@@ -120,22 +121,27 @@ public class RussiaVseTvPlugin implements Plugin {
         }
     }
 
+    @Override
     public String getPluginName() {
         return "www.tvguide.com Plugin";
     }
 
+    @Override
     public String getPluginVersion() {
         return "1.0";
     }
 
+    @Override
     public String getPluginAuthor() {
         return "Vitaly Sidorov";
     }
 
+    @Override
     public String getPluginFullPackageName() {
         return "ru.sidvi.tvguide.plugin";
     }
 
+    @Override
     public String getPluginHelp() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

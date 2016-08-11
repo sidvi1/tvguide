@@ -57,7 +57,7 @@ import ru.sidvi.tvguide.plugin.Day;
 import ru.sidvi.tvguide.plugin.Query;
 
 /**
- * Create and fill Query object based on parameters
+ * Create and fill Query object based on parameters.
  *
  * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
  */

@@ -32,6 +32,7 @@ public class VseTvParser implements Parser {
         return exception;
     }
 
+    @Override
     public ArrayList<Event> parse(InputStream is) {
         ArrayList<Event> list = new ArrayList<Event>();
 
@@ -162,7 +163,7 @@ public class VseTvParser implements Parser {
         }
     }
 
-    private class LevelCounter {
+    private static class LevelCounter {
         private int level = 0;
 
         private void inc() {

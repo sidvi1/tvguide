@@ -109,6 +109,7 @@ public class PluginRegistry {
     private List<String> listJarFiles() {
         File pluginDir = new File(PLUGIN_DIR);
         String[] plugins = pluginDir.list(new FilenameFilter() {
+            @Override
             public boolean accept(File file, String s) {
                 return s.endsWith(".jar");
             }

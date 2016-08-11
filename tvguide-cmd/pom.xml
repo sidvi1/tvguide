@@ -16,6 +16,7 @@
         <slf4j-api.version>1.7.13</slf4j-api.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
         <junit.version>4.12</junit.version>
+        <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
     </properties>
 
     <dependencies>
