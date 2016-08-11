@@ -25,7 +25,9 @@ class PluginClassNameDetector {
 
     public boolean detect() {
         try {
-            if (tryToDetect()) return true;
+            if (tryToDetect()){
+                return true;
+            }
         } catch (IOException e) {
             log.error("Plugin could not be loaded. Sorry.", e);
             return false;

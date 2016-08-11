@@ -51,14 +51,17 @@
 // package definition
 package ru.sidvi.tvguide.handlers;
 
-// needed imports
 
 import org.apache.log4j.Logger;
 import ru.sidvi.tvguide.plugin.Day;
 import ru.sidvi.tvguide.plugin.Query;
 
+/**
+ * Create and fill Query object based on parameters
+ *
+ * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
+ */
 public class QueryFactory {
-    // create a log instance
     private Logger log = Logger.getRootLogger();
     private String[] parameters;
 
@@ -84,5 +87,4 @@ public class QueryFactory {
 
         return query;
     }
-
 }

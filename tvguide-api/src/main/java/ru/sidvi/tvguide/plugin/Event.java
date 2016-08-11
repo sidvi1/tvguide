@@ -62,7 +62,7 @@ import java.util.Calendar;
  */
 public class Event {
 
-    private final static String DEFAULT_GENRE = "other";
+    private static final String DEFAULT_GENRE = "other";
 
     // the event date
     private Calendar date;

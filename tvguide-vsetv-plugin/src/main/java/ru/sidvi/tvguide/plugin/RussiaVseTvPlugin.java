@@ -66,6 +66,11 @@ import ru.sidvi.tvguide.plugin.parser.VseTvParser;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Plugin for http://www.vsetvcom/
+ *
+ * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
+ */
 public class RussiaVseTvPlugin implements Plugin {
 
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");

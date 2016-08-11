@@ -137,14 +137,24 @@ public class Query {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Query query = (Query) o;
 
-        if (channel != null ? !channel.equals(query.channel) : query.channel != null) return false;
-        if (genre != null ? !genre.equals(query.genre) : query.genre != null) return false;
-        if (day != query.day) return false;
+        if (channel != null ? !channel.equals(query.channel) : query.channel != null) {
+            return false;
+        }
+        if (genre != null ? !genre.equals(query.genre) : query.genre != null) {
+            return false;
+        }
+        if (day != query.day) {
+            return false;
+        }
         return !(name != null ? !name.equals(query.name) : query.name != null);
 
     }
