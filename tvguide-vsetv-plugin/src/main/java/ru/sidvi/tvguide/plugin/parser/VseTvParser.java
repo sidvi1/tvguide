@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
@@ -49,29 +50,57 @@ public class VseTvParser implements Parser {
         ArrayList<Event> list = new ArrayList<Event>();
         Document document = Jsoup.parse(is, SITE_CHARSET, SITE_URL);
 
-//        String eventChannel = null;
         EventExtractor extractor = new EventExtractor();
+        LevelCounter counter = new LevelCounter();
+
         Elements channelsEl = document.select(".main");
-        for (Element e : channelsEl) {
-            for (Element inE : e.getAllElements()) {
+        walkElements(extractor, channelsEl, counter);
+        list.addAll(extractor.getEvents());
+        return list;
+    }
 
-                if (TagUtils.isTag(inE, "div")) {
-                    extractor.extractEventChannel(inE);
+    private void walkElements(EventExtractor extractor, Elements elements, LevelCounter counter) {
+        counter.inc();
+        for (Element e : elements) {
+            if (counter.getLevel() == 1) {
+                walkElements(extractor, e.getAllElements(), counter);
+            }
 
-                    if (TagUtils.hasId(inE, "schedule_container")) {
+            if (counter.getLevel() == 2 && TagUtils.isTag(e, "div") && TagUtils.hasClass(e, "chname")) {
+                extractor.setEventChannel(e.select(".channeltitle").text().trim());
+            }
 
-                        Elements children = inE.getAllElements();
-                        for (Element child : children) {
+            if (counter.getLevel() == 2 && TagUtils.isTag(e, "div") && TagUtils.hasId(e, "schedule_container")) {
+                walkElements(extractor, e.getAllElements(), counter);
+            }
 
-                            extractor.extractEventDate(child);
-                            extractor.extractEventName(child);
-                            list.addAll(extractor.createEventIfNeed());
-                        }
-                    }
-                }
+            if (counter.getLevel() == 3 && (TagUtils.hasClass(e, "pasttime") || TagUtils.hasClass(e, "time") || TagUtils.hasClass(e, "onair"))) {
+                extractor.setEventDate(e.text().trim());
+            }
+
+            if (counter.getLevel() == 3 && (TagUtils.hasClass(e, "pastprname2") || TagUtils.hasClass(e, "prname2"))) {
+                extractor.setEventName(e.text().trim());
+                extractor.createEvent();
             }
         }
-        return list;
+        counter.decr();
+    }
+
+
+    private class LevelCounter {
+        private int level = 0;
+
+        private void inc() {
+            level++;
+        }
+
+        private void decr() {
+            level--;
+        }
+
+        public int getLevel() {
+            return level;
+        }
     }
 
     private static class TagUtils {
@@ -92,21 +121,25 @@ public class VseTvParser implements Parser {
     private static class EventExtractor {
         private String eventDate = null;
         private String eventName = null;
-        private boolean createEvent = false;
         private String eventChannel;
+        private List<Event> events = new ArrayList<Event>();
+
+//        public int getLevel() {
+//            return level;
+//        }
+//
+//        private void increaseLevel(){
+//            level ++;
+//        }
 
         public void reset() {
             eventDate = null;
             eventName = null;
-            createEvent = false;
         }
 
-        protected boolean isCreateEvent() {
-            return createEvent;
-        }
-
-        protected void shouldCreateEvent() {
-            createEvent = true;
+        public void createEvent() {
+            events.add(buildEvent(eventChannel, eventDate, eventName));
+            reset();
         }
 
         protected void setEventDate(String eventDate) {
@@ -119,10 +152,6 @@ public class VseTvParser implements Parser {
 
         protected void setEventChannel(String eventChannel) {
             this.eventChannel = eventChannel;
-        }
-
-        public Event buildEvent() {
-            return buildEvent(eventChannel, eventDate, eventName);
         }
 
         private Event buildEvent(String eventChannel, String eventDate, String eventName) {
@@ -146,33 +175,8 @@ public class VseTvParser implements Parser {
             return date;
         }
 
-        private void extractEventDate(Element child) {
-            if (TagUtils.hasClass(child, "pasttime") || TagUtils.hasClass(child, "time") || TagUtils.hasClass(child, "onair")) {
-                setEventDate(child.text().trim());
-            }
-        }
-
-        private void extractEventName(Element child) {
-            if (TagUtils.hasClass(child, "pastprname2") || TagUtils.hasClass(child, "prname2")) {
-                setEventName(child.text().trim());
-                shouldCreateEvent();
-            }
-        }
-
-        private ArrayList<Event> createEventIfNeed() {
-            ArrayList<Event> list = new ArrayList<Event>();
-            if (isCreateEvent()) {
-                list.add(buildEvent());
-                reset();
-            }
-            return list;
-        }
-
-        private void extractEventChannel(Element inE) {
-            if (TagUtils.hasClass(inE, "chname")) {
-                setEventChannel(inE.select(".channeltitle").text().trim());
-            }
+        public List<Event> getEvents() {
+            return events;
         }
     }
-
 }
