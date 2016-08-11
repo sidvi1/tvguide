@@ -22,6 +22,7 @@ public class VseTvParser implements Parser {
     public static final String SITE_CHARSET = "windows-1251";
     public static final String SITE_URL = "http://www.vsetvcom/";
     private Exception exception;
+    private boolean parseSuccess = true;
 
     public boolean isParseSuccess() {
         return parseSuccess;
@@ -30,8 +31,6 @@ public class VseTvParser implements Parser {
     public Exception getException() {
         return exception;
     }
-
-    private boolean parseSuccess = true;
 
     public ArrayList<Event> parse(InputStream is) {
         ArrayList<Event> list = new ArrayList<Event>();
@@ -84,23 +83,6 @@ public class VseTvParser implements Parser {
             }
         }
         counter.decr();
-    }
-
-
-    private class LevelCounter {
-        private int level = 0;
-
-        private void inc() {
-            level++;
-        }
-
-        private void decr() {
-            level--;
-        }
-
-        public int getLevel() {
-            return level;
-        }
     }
 
     private static class TagUtils {
@@ -177,6 +159,22 @@ public class VseTvParser implements Parser {
 
         public List<Event> getEvents() {
             return events;
+        }
+    }
+
+    private class LevelCounter {
+        private int level = 0;
+
+        private void inc() {
+            level++;
+        }
+
+        private void decr() {
+            level--;
+        }
+
+        public int getLevel() {
+            return level;
         }
     }
 }

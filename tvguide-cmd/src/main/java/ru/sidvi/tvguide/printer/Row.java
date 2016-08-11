@@ -14,7 +14,7 @@ public class Row {
 
     private List<Cell> row = new ArrayList<Cell>();
 
-    public void add(Cell cell){
+    public void add(Cell cell) {
         row.add(cell);
     }
 

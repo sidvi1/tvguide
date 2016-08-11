@@ -73,10 +73,8 @@ import java.util.*;
  */
 public class TablePrinter {
 
-    private ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale.getDefault());
-
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm");
-
+    private ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale.getDefault());
     private List<Event> list;
     private PrintWriter out;
 

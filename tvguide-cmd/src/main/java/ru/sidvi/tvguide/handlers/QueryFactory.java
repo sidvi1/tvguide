@@ -53,9 +53,9 @@ package ru.sidvi.tvguide.handlers;
 
 // needed imports
 
+import org.apache.log4j.Logger;
 import ru.sidvi.tvguide.plugin.Day;
 import ru.sidvi.tvguide.plugin.Query;
-import org.apache.log4j.Logger;
 
 public class QueryFactory {
     // create a log instance

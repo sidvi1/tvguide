@@ -54,14 +54,18 @@ package ru.sidvi.tvguide.handlers;
 
 // needed imports
 
-import java.io.*;
-import java.util.*;
-
-import ru.sidvi.tvguide.plugin.api.Plugin;
 import org.apache.log4j.Logger;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.exception.JclException;
+import ru.sidvi.tvguide.plugin.api.Plugin;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Provides methods for loading on-the-fly plugins for HowAbout. It makes use
@@ -76,9 +80,8 @@ import org.xeustechnologies.jcl.exception.JclException;
 public class PluginRegistry {
 
     private static final String PLUGIN_DIR = "plugins" + File.separator;
-    private Logger log = Logger.getRootLogger();
-
     private final Collection<Plugin> plugins = new ArrayList<Plugin>();
+    private Logger log = Logger.getRootLogger();
 
     public Collection<Plugin> getPlugins() {
         return plugins;

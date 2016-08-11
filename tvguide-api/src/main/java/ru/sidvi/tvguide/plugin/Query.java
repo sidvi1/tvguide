@@ -54,6 +54,7 @@ package ru.sidvi.tvguide.plugin;
 /**
  * Provides query features for HowAbout classes. The query object is heavily
  * used by all plugins, as they rely on the information a query holds.
+ *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
@@ -68,6 +69,12 @@ public class Query {
     private String name;
 
     public Query() {
+    }
+
+    public Query(String channel, String genre, Day day) {
+        this.channel = channel;
+        this.genre = genre;
+        this.day = day;
     }
 
     public String getChannel() {
@@ -94,18 +101,12 @@ public class Query {
         this.day = day;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
-    public Query(String channel, String genre, Day day) {
-        this.channel = channel;
-        this.genre = genre;
-        this.day = day;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getHumanReadable() {

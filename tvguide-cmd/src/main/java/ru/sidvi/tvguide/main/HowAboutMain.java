@@ -54,8 +54,8 @@ package ru.sidvi.tvguide.main;
 
 import ru.sidvi.tvguide.Utils;
 import ru.sidvi.tvguide.comparator.EventTimeComparator;
-import ru.sidvi.tvguide.handlers.QueryFactory;
 import ru.sidvi.tvguide.handlers.PluginRegistry;
+import ru.sidvi.tvguide.handlers.QueryFactory;
 import ru.sidvi.tvguide.handlers.parameters.Validator;
 import ru.sidvi.tvguide.plugin.Event;
 import ru.sidvi.tvguide.plugin.Query;

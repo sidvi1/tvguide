@@ -44,7 +44,7 @@ public class DownloadExecutor {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 is = c.getInputStream();
                 downloaded = action.download(is);
-            }else{
+            } else {
                 System.out.println("Can't connect to " + url);
                 System.out.println("Status code is " + responseCode);
             }

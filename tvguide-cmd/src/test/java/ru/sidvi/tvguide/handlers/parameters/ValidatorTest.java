@@ -81,7 +81,9 @@ public class ValidatorTest {
         boolean actual = validator.validate(params);
         //then
         assertEquals(false, actual);
-    }    @Test
+    }
+
+    @Test
     public void tooLowParams() throws Exception {
         //given
         params = new String[]{
