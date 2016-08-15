@@ -28,47 +28,18 @@
             <artifactId>jcl-core</artifactId>
         </dependency>
 
-        <!--test-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>commons-io</groupId>
-                                    <artifactId>commons-io</artifactId>
-                                    <version>${commons-io.version}</version>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                </artifactItem>
-                                <dependency>
-                                    <groupId>commons-collections</groupId>
-                                    <artifactId>commons-collections</artifactId>
-                                    <version>${commons-collections.version}</version>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                </dependency>
-                            </artifactItems>
-                            <!-- other configurations here -->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -87,7 +58,6 @@
                                     <mainClass>ru.sidvi.tvguide.main.HowAboutMain</mainClass>
                                 </transformer>
                             </transformers>
-                            <outputFile>tvguide.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
