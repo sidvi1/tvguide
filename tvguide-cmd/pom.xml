@@ -87,6 +87,7 @@
                                     <mainClass>ru.sidvi.tvguide.main.HowAboutMain</mainClass>
                                 </transformer>
                             </transformers>
+                            <outputFile>tvguide.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
