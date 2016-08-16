@@ -26,16 +26,6 @@ public class VseTvParser implements Parser {
 
     public static final String SITE_CHARSET = "windows-1251";
     public static final String SITE_URL = "http://www.vsetvcom/";
-    private Exception exception;
-    private boolean parseSuccess = true;
-
-    public boolean isParseSuccess() {
-        return parseSuccess;
-    }
-
-    public Exception getException() {
-        return exception;
-    }
 
     @Override
     public ArrayList<Event> parse(InputStream is) {
@@ -44,8 +34,6 @@ public class VseTvParser implements Parser {
         try {
             list.addAll(tryToParse(is));
         } catch (Exception e) {
-            parseSuccess = false;
-            exception = e;
             logger.error("", e);
         }
         return list;
