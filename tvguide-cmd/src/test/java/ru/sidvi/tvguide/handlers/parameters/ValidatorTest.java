@@ -96,4 +96,35 @@ public class ValidatorTest {
         //then
         assertEquals(false, actual);
     }
+
+    @Test
+    public void secondMustBeOn() throws Exception {
+        //given
+        params = new String[]{
+                "first",
+                "who",
+                "third",
+                "today"
+        };
+        //when
+        boolean actual = validator.validate(params);
+        //then
+        assertEquals(false, actual);
+    }
+
+    @Test
+    public void fourthMustBeTodayOrTomorrow() throws Exception {
+        //given
+        params = new String[]{
+                "first",
+                "on",
+                "third",
+                "fourth"
+        };
+        //when
+        boolean actual = validator.validate(params);
+        //then
+        assertEquals(true, actual);
+    }
+
 }
