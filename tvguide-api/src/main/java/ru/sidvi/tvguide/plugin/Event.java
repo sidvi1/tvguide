@@ -50,8 +50,6 @@
 // package definition
 package ru.sidvi.tvguide.plugin;
 
-// needed imports
-
 import java.util.Calendar;
 
 /**
