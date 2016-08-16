@@ -126,7 +126,7 @@ public class VseTvParser implements Parser {
         }
 
         private Event buildEvent(String eventChannel, String eventDate, String eventName) {
-            Calendar date = getDefaultDateIfNotParsed(eventDate);
+            Calendar date = getDefaultDateIfNotParsed(eventDate, new GregorianCalendar());
 
             Event event = new Event();
             event.setChannel(eventChannel);
@@ -135,13 +135,11 @@ public class VseTvParser implements Parser {
             return event;
         }
 
-        private Calendar getDefaultDateIfNotParsed(String eventDate) {
-            Calendar date = null;
+        private Calendar getDefaultDateIfNotParsed(String eventDate, Calendar date) {
             try {
                 date = Utils.convert(eventDate);
             } catch (ParseException e) {
                 logger.warn("Can't parse date {}.", eventDate, e);
-                date = new GregorianCalendar();
             }
             return date;
         }
