@@ -63,7 +63,7 @@ public class VseTvDownloadActionTest {
                     .append(format(event.getDate()))
                     .append(": ")
                     .append(event.getName())
-                    .append("\r\n");
+                    .append(System.lineSeparator());
         }
     }
 
