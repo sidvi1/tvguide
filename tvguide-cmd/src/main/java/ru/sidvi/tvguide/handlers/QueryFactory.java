@@ -62,7 +62,7 @@ import ru.sidvi.tvguide.plugin.Query;
  * @author Vitaly Sidorov (mail@vitaly-sidorov.com)
  */
 public class QueryFactory {
-    private Logger log = LoggerFactory.getLogger(QueryFactory.class);
+
     private String[] parameters;
 
     public QueryFactory(String[] parameters) {
