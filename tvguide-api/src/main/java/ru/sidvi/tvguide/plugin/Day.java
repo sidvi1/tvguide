@@ -54,6 +54,7 @@ package ru.sidvi.tvguide.plugin;
 /**
  * Provides an enumeration to represent which day will be used to query
  * TV events.
+ *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0

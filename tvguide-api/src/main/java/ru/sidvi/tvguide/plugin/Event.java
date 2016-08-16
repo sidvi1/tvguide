@@ -56,6 +56,7 @@ import java.util.Calendar;
 
 /**
  * Provides the POJO class that represents a TV event.
+ *
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
@@ -86,11 +87,12 @@ public class Event {
 
     /**
      * Constructor method. It basically sets all class attributes.
-     * @param date The event date.
-     * @param name The event name.
+     *
+     * @param date        The event date.
+     * @param name        The event name.
      * @param description The event description.
-     * @param genre The event genre.
-     * @param channel The event channel.
+     * @param genre       The event genre.
+     * @param channel     The event channel.
      */
     public Event(Calendar date, String name, String description, String genre, String channel) {
 
@@ -104,6 +106,7 @@ public class Event {
 
     /**
      * Getter method for channel.
+     *
      * @return A string containing the event channel.
      */
     public String getChannel() {
@@ -112,6 +115,7 @@ public class Event {
 
     /**
      * Setter method for channel.
+     *
      * @param channel The event channel.
      */
     public void setChannel(String channel) {
@@ -120,6 +124,7 @@ public class Event {
 
     /**
      * Getter method for description.
+     *
      * @return A string containing the event description.
      */
     public String getDescription() {
@@ -128,6 +133,7 @@ public class Event {
 
     /**
      * Setter method for description.
+     *
      * @param description The event description.
      */
     public void setDescription(String description) {
@@ -136,6 +142,7 @@ public class Event {
 
     /**
      * Getter method for date.
+     *
      * @return A calendar object containing the event date.
      */
     public Calendar getDate() {
@@ -144,6 +151,7 @@ public class Event {
 
     /**
      * Setter method for date.
+     *
      * @param date The event date.
      */
     public void setDate(Calendar date) {
@@ -152,6 +160,7 @@ public class Event {
 
     /**
      * Getter method for genre.
+     *
      * @return A string containing the event genre.
      */
     public String getGenre() {
@@ -160,6 +169,7 @@ public class Event {
 
     /**
      * Setter method for genre.
+     *
      * @param genre The event genre.
      */
     public void setGenre(String genre) {
@@ -168,6 +178,7 @@ public class Event {
 
     /**
      * Getter method for name.
+     *
      * @return A string containing the event name.
      */
     public String getName() {
@@ -176,6 +187,7 @@ public class Event {
 
     /**
      * Setter method for name.
+     *
      * @param name The event name.
      */
     public void setName(String name) {

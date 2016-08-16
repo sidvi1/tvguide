@@ -26,7 +26,7 @@ class PluginClassNameDetector {
 
     public boolean detect() {
         try {
-            if (tryToDetect()){
+            if (tryToDetect()) {
                 return true;
             }
         } catch (IOException e) {

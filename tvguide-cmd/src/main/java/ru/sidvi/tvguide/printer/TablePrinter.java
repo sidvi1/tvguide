@@ -57,7 +57,6 @@ import org.apache.commons.lang3.StringUtils;
 import ru.sidvi.tvguide.plugin.Event;
 
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -81,7 +80,8 @@ public class TablePrinter {
 
     /**
      * Constructor method. Sets the events list.
-     *  @param list
+     *
+     * @param list
      * @param out
      */
     public TablePrinter(List<Event> list, PrintStream out) {

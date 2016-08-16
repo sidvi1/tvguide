@@ -78,10 +78,9 @@ import java.util.List;
  */
 public class PluginRegistry {
 
-    private Logger log = LoggerFactory.getLogger(PluginRegistry.class);
-
     private static final String PLUGIN_DIR = "plugins" + File.separator;
     private final Collection<Plugin> plugins = new ArrayList<Plugin>();
+    private Logger log = LoggerFactory.getLogger(PluginRegistry.class);
 
     public Collection<Plugin> getPlugins() {
         return plugins;

@@ -63,8 +63,6 @@ import ru.sidvi.tvguide.plugin.api.Plugin;
 import ru.sidvi.tvguide.printer.TablePrinter;
 
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

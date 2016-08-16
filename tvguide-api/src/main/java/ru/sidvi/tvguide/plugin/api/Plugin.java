@@ -65,8 +65,9 @@ public interface Plugin {
 
     /**
      * Returns all events found which match with the provided query.
+     *
      * @param query A <code>Query</code> object, which
-     * is set according to HowAbout parameters.
+     *              is set according to HowAbout parameters.
      * @return A list of events. If no events are found, it returns an
      * empty list.
      */
@@ -74,30 +75,35 @@ public interface Plugin {
 
     /**
      * Get the plugin name.
+     *
      * @return A string containing the plugin name.
      */
     String getPluginName();
 
     /**
      * Get the plugin version.
+     *
      * @return A string containing the plugin version.
      */
     String getPluginVersion();
 
     /**
      * Get the plugin author.
+     *
      * @return A string containing the plugin author.
      */
     String getPluginAuthor();
 
     /**
      * Get the plugin full package name.
+     *
      * @return A string containing the plugin full package name.
      */
     String getPluginFullPackageName();
 
     /**
      * Get the plugin help.
+     *
      * @return A string containing the plugin help.
      */
     String getPluginHelp();
