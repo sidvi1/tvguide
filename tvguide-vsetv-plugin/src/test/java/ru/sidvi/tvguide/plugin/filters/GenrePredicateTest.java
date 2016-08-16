@@ -37,4 +37,15 @@ public class GenrePredicateTest {
 
         assertEquals(false, actual);
     }
+
+    @Test
+    public void testAny(){
+        tested = new GenrePredicate("#");
+        Event event = new Event();
+        event.setGenre("Film name");
+
+        boolean actual = tested.evaluate(event);
+
+        assertEquals(true, actual);
+    }
 }

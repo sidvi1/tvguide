@@ -9,19 +9,19 @@ import static org.junit.Assert.*;
 /**
  * @author Vitaly Sidorov mail@vitaly-sidorov.com
  */
-public class ChannelPredicateTest {
+public class NamePredicateTest {
 
-    private ChannelPredicate tested;
+    private NamePredicate tested;
 
     @Before
     public void setUp(){
-        tested = new ChannelPredicate("tv");
+        tested = new NamePredicate("movie");
     }
 
     @Test
     public void shouldTrue() throws Exception {
         Event event = new Event();
-        event.setChannel("MTV Russia");
+        event.setName("Best movie");
 
         boolean actual = tested.evaluate(event);
 
@@ -31,19 +31,18 @@ public class ChannelPredicateTest {
     @Test
     public void shouldFalse() throws Exception {
         Event event = new Event();
-        event.setChannel("CNN");
+        event.setName("Film name");
 
         boolean actual = tested.evaluate(event);
 
         assertEquals(false, actual);
     }
 
-
     @Test
     public void testAny(){
-        tested = new ChannelPredicate("#");
+        tested = new NamePredicate("#");
         Event event = new Event();
-        event.setChannel("Film name");
+        event.setName("Film name");
 
         boolean actual = tested.evaluate(event);
 
