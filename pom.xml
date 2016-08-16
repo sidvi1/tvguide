@@ -352,14 +352,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <jcl-core.version>2.7</jcl-core.version>
-        <jsoup.version>1.9.2</jsoup.version>
-        <commons-io.version>2.5</commons-io.version>
-        <commons-collections.version>3.2.2</commons-collections.version>
-        <junit.version>4.12</junit.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
-        <slf4j-api.version>1.7.21</slf4j-api.version>
-        <mockito-all.version>2.0.2-beta</mockito-all.version>
         <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
         <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
         <jsr305.version>3.0.1</jsr305.version>
@@ -367,13 +359,7 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <!-- to work around filtering bug, which makes maven.build.timestamp inaccessible -->
         <build.timestamp>${maven.build.timestamp}</build.timestamp>
-
         <forbiddenapis.version>2.0</forbiddenapis.version>
-
-        <redmine-java-api.version>2.6.0</redmine-java-api.version>
-        <junit.version>4.12</junit.version>
-        <mockito-all.version>2.0.2-beta</mockito-all.version>
-        <mockserver-netty.version>3.10.4</mockserver-netty.version>
         <auto-service.version>1.0-rc2</auto-service.version>
         <jsr305.version>3.0.1</jsr305.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
@@ -393,5 +379,19 @@
         <license-maven-plugin.email>mail@vitaly-sidorov.com</license-maven-plugin.email>
         <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
         <jdeb.version>1.5</jdeb.version>
+
+
+        <jcl-core.version>2.7</jcl-core.version>
+        <jsoup.version>1.9.2</jsoup.version>
+        <commons-io.version>2.5</commons-io.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <junit.version>4.12</junit.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
+        <mockito-all.version>2.0.2-beta</mockito-all.version>
+        <redmine-java-api.version>2.6.0</redmine-java-api.version>
+        <junit.version>4.12</junit.version>
+        <mockito-all.version>2.0.2-beta</mockito-all.version>
+        <mockserver-netty.version>3.10.4</mockserver-netty.version>
     </properties>
 </project>
