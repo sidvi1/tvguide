@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
  * @author Vitaly Sidorov mail@vitaly-sidorov.com
  */
 public class Validator {
-    private final Logger logger = LoggerFactory.getLogger(Validator.class);
 
     private String message = "";
 
