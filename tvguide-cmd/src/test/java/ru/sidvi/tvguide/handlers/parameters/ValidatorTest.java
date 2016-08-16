@@ -124,7 +124,7 @@ public class ValidatorTest {
         //when
         boolean actual = validator.validate(params);
         //then
-        assertEquals(true, actual);
+        assertEquals(false, actual);
     }
 
 }
