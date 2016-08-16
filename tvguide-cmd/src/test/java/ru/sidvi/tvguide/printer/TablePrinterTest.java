@@ -18,7 +18,6 @@ import static ru.sidvi.tvguide.TestUtils.removeReturn;
 /**
  * @author Vitaly Sidorov mail@vitaly-sidorov.com
  */
-@Ignore
 public class TablePrinterTest {
 
     private TablePrinter printer;
