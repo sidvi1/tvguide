@@ -22,14 +22,20 @@ public class Utils {
         Utils.ERROR_MESSAGE.append("You may also search using wildcards (#), e.g.,\n\n");
     }
 
-    public static Calendar convert(String text) throws ParseException {
+    /**
+     *
+     * @param val - only hours and minutes in format HH:mm
+     * @return
+     * @throws ParseException
+     */
+    public static Calendar convert(String val) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        text = df.format(new Date()) + " " + text;
+        val = df.format(new Date()) + " " + val;
 
         Calendar dt = new GregorianCalendar();
-        dt.setTime(dfFull.parse(text));
+        dt.setTime(dfFull.parse(val));
         return dt;
     }
 
