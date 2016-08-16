@@ -1,10 +1,10 @@
 package ru.sidvi.tvguide;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
@@ -45,5 +45,16 @@ public class Utils {
 
     public static void printErrorMessage(String s) {
         System.out.println(s + "\n\n" + ERROR_MESSAGE.toString());
+    }
+
+    public static List<String> list(String dir, final String ext) {
+        File pluginDir = new File(dir);
+        String[] plugins = pluginDir.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String s) {
+                return s.endsWith(ext);
+            }
+        });
+        return Arrays.asList(plugins);
     }
 }

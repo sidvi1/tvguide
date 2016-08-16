@@ -57,12 +57,11 @@ import org.slf4j.LoggerFactory;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.exception.JclException;
+import ru.sidvi.tvguide.Utils;
 import ru.sidvi.tvguide.plugin.api.Plugin;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -93,28 +92,17 @@ public class PluginRegistry {
         jcl.add(PLUGIN_DIR);
         JclObjectFactory factory = JclObjectFactory.getInstance();
 
-        List<String> jarFiles = listJarFiles();
+        List<String> jarFiles = Utils.list(PLUGIN_DIR, ".jar");
+        log.debug("Founded plugins: {}", jarFiles.size());
+
         for (String jarFile : jarFiles) {
 
             log.debug("Trying to detect from: " + jarFile);
 
             PluginClassNameDetector finder = new PluginClassNameDetector(PLUGIN_DIR + jarFile);
             if (finder.detect()) {
-                plugins.add((Plugin) factory.create(jcl, finder.getPlugginClassName()));
+                plugins.add((Plugin) factory.create(jcl, finder.getPluginClassName()));
             }
         }
-    }
-
-    private List<String> listJarFiles() {
-        File pluginDir = new File(PLUGIN_DIR);
-        String[] plugins = pluginDir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                return s.endsWith(".jar");
-            }
-        });
-
-        log.debug("Founded plugins: " + plugins.length);
-        return Arrays.asList(plugins);
     }
 }

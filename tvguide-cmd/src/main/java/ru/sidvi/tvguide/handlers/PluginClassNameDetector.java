@@ -59,8 +59,7 @@ class PluginClassNameDetector {
         return pluginClass;
     }
 
-    public String getPlugginClassName() {
+    public String getPluginClassName() {
         return pluginClass;
     }
-
 }
