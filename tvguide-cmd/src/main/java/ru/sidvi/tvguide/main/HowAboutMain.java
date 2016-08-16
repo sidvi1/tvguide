@@ -63,6 +63,7 @@ import ru.sidvi.tvguide.plugin.api.Plugin;
 import ru.sidvi.tvguide.printer.TablePrinter;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,17 +98,15 @@ public class HowAboutMain {
                 System.out.println(query.getHumanReadable() + " in Plugin " + plugin.getPluginName());
 
                 eventlist.addAll(plugin.getEvents(query));
+
+                ArrayList<Event> list = new ArrayList<Event>(eventlist);
+                Collections.sort(list, new EventTimeComparator());
+
+                TablePrinter tableprinter = new TablePrinter(list, System.out);
+                tableprinter.draw();
             } else {
                 Utils.printErrorMessage(validator.getMessage());
             }
         }
-
-
-        ArrayList<Event> list = new ArrayList<Event>(eventlist);
-        Collections.sort(list, new EventTimeComparator());
-
-        TablePrinter tableprinter = new TablePrinter(list, new PrintWriter(System.out));
-        tableprinter.draw();
     }
-
 }

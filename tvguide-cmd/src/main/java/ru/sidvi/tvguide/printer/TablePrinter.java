@@ -56,6 +56,7 @@ package ru.sidvi.tvguide.printer;
 import org.apache.commons.lang3.StringUtils;
 import ru.sidvi.tvguide.plugin.Event;
 
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -76,15 +77,14 @@ public class TablePrinter {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm");
     private ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale.getDefault());
     private List<Event> list;
-    private PrintWriter out;
+    private PrintStream out;
 
     /**
      * Constructor method. Sets the events list.
-     *
-     * @param list
+     *  @param list
      * @param out
      */
-    public TablePrinter(List<Event> list, PrintWriter out) {
+    public TablePrinter(List<Event> list, PrintStream out) {
         this.list = list;
         this.out = out;
     }
