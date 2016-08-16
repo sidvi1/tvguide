@@ -1,5 +1,7 @@
 package ru.sidvi.tvguide.plugin.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.sidvi.tvguide.plugin.Event;
 
 import java.io.InputStream;
@@ -12,6 +14,8 @@ import java.util.Map;
  * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 26.12.2015.
  */
 public class DownloadExecutor {
+
+    private Logger logger = LoggerFactory.getLogger(DownloadExecutor.class);
 
     public static final String DEFAULT_METHOD = "GET";
     private String url;
@@ -54,7 +58,7 @@ public class DownloadExecutor {
             }
             c.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("", e);
         }
     }
 

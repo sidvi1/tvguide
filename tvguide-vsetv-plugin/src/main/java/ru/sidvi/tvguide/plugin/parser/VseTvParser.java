@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.sidvi.tvguide.Utils;
 import ru.sidvi.tvguide.plugin.Event;
 
@@ -19,6 +21,9 @@ import java.util.List;
  * Created by Vitaly Sidorov (mail@vitaly-sidorov.com) on 14.12.2015.
  */
 public class VseTvParser implements Parser {
+
+    private Logger logger = LoggerFactory.getLogger(VseTvParser.class);
+
     public static final String SITE_CHARSET = "windows-1251";
     public static final String SITE_URL = "http://www.vsetvcom/";
     private Exception exception;
@@ -41,7 +46,7 @@ public class VseTvParser implements Parser {
         } catch (Exception e) {
             parseSuccess = false;
             exception = e;
-            e.printStackTrace();
+            logger.error("", e);
         }
         return list;
     }
@@ -102,18 +107,13 @@ public class VseTvParser implements Parser {
     }
 
     private static class EventExtractor {
+
+        private Logger logger = LoggerFactory.getLogger(EventExtractor.class);
+
         private String eventDate = null;
         private String eventName = null;
         private String eventChannel;
         private List<Event> events = new ArrayList<Event>();
-
-//        public int getLevel() {
-//            return level;
-//        }
-//
-//        private void increaseLevel(){
-//            level ++;
-//        }
 
         public void reset() {
             eventDate = null;
@@ -152,7 +152,7 @@ public class VseTvParser implements Parser {
             try {
                 date = Utils.convert(eventDate);
             } catch (ParseException e) {
-                e.printStackTrace();
+                logger.warn("Can't parse date {}.", eventDate, e);
                 date = new GregorianCalendar();
             }
             return date;
