@@ -352,13 +352,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <jcl-core.version>2.2.2</jcl-core.version>
-        <jsoup.version>1.8.3</jsoup.version>
-        <commons-io.version>2.4</commons-io.version>
+        <jcl-core.version>2.7</jcl-core.version>
+        <jsoup.version>1.9.2</jsoup.version>
+        <commons-io.version>2.5</commons-io.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <junit.version>4.12</junit.version>
         <commons-lang3.version>3.4</commons-lang3.version>
-        <slf4j-api.version>1.7.13</slf4j-api.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
         <mockito-all.version>2.0.2-beta</mockito-all.version>
         <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
         <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
