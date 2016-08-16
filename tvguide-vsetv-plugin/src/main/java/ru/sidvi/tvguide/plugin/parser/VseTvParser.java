@@ -79,7 +79,7 @@ public class VseTvParser implements Parser {
             }
 
             if (counter.getLevel() == 3 && (TagUtils.hasClass(e, "pastprname2") || TagUtils.hasClass(e, "prname2"))) {
-                extractor.setEventName(e.text().trim());
+                extractor.setEventName(e.text().trim().replace("\u00a0", "").trim());
                 extractor.createEvent();
             }
         }
