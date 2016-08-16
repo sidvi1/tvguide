@@ -71,10 +71,17 @@ public class Query {
     public Query() {
     }
 
-    public Query(String channel, String genre, Day day) {
+    public Query(String name, String channel, Day day) {
+        this.name = name;
         this.channel = channel;
-        this.genre = genre;
         this.day = day;
+    }
+
+    public Query(String name, String channel, Day today, String genre) {
+        this.name = name;
+        this.channel = channel;
+        day = today;
+        this.genre = genre;
     }
 
     public String getChannel() {
